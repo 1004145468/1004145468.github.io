@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>浅谈synchronized、Lock、ThreadLocal和semaphore | Yang&#39;s Blog</title>
+
+  <!-- keywords -->
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="1. 背景  在进行多线程编程时，最让人头痛的无非是线程安全问题，对共享资源的访问控制，如果稍加不注意就可能导致莫名的错误,主要体现有:  创建单例对象时，内存中可能存在多个实例。 一个线程正在读取数据，由于另一个写线程的介入，可能导致读线程读取到的数据脏乱不堪。 同一对象可能同时被多个线程使用，造成结果上面的偏差   2. synchronized 的介绍  为了防止多线程造成需要单例化的对象存">
+<meta name="keywords" content="多线程处理">
+<meta property="og:type" content="article">
+<meta property="og:title" content="浅谈synchronized、Lock、ThreadLocal和semaphore">
+<meta property="og:url" content="https://1004145468.github.io/2017/12/17/浅谈synchronized、Lock、ThreadLocal和semaphore/index.html">
+<meta property="og:site_name" content="Yang&#39;s Blog">
+<meta property="og:description" content="1. 背景  在进行多线程编程时，最让人头痛的无非是线程安全问题，对共享资源的访问控制，如果稍加不注意就可能导致莫名的错误,主要体现有:  创建单例对象时，内存中可能存在多个实例。 一个线程正在读取数据，由于另一个写线程的介入，可能导致读线程读取到的数据脏乱不堪。 同一对象可能同时被多个线程使用，造成结果上面的偏差   2. synchronized 的介绍  为了防止多线程造成需要单例化的对象存">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2017-12-16T08:26:39.969Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="浅谈synchronized、Lock、ThreadLocal和semaphore">
+<meta name="twitter:description" content="1. 背景  在进行多线程编程时，最让人头痛的无非是线程安全问题，对共享资源的访问控制，如果稍加不注意就可能导致莫名的错误,主要体现有:  创建单例对象时，内存中可能存在多个实例。 一个线程正在读取数据，由于另一个写线程的介入，可能导致读线程读取到的数据脏乱不堪。 同一对象可能同时被多个线程使用，造成结果上面的偏差   2. synchronized 的介绍  为了防止多线程造成需要单例化的对象存">
+  
+    <link rel="alternative" href="/atom.xml" title="Yang&#39;s Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1513413561480&di=b6c307347e043052915538ae362b32c9&imgtype=0&src=http%3A%2F%2Fpic30.photophoto.cn%2F20140119%2F0005018372822892_b.jpg">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+  
+
+  <script src="//cdn.bootcss.com/require.js/2.3.2/require.min.js"></script>
+  <script src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+
+  
+</head>
+<body>
+  <div id="container">
+    <div id="particles-js"></div>
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1513413561480&amp;di=b6c307347e043052915538ae362b32c9&amp;imgtype=0&amp;src=http%3A%2F%2Fpic30.photophoto.cn%2F20140119%2F0005018372822892_b.jpg" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">Mr Yang</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">被代码耽误的二逼青年</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						<li>友情链接</li>
+						
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">最新文章</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/1004145468" title="github">github</a>
+					        
+								<a class="mail" target="_blank" href="http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=1004145468@qq.com" title="mail">mail</a>
+					        
+								<a class="jianshu" target="_blank" href="http://www.jianshu.com/u/5fbebf77711c" title="jianshu">jianshu</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Android•Lottie/" style="font-size: 10px;">Android•Lottie</a> <a href="/tags/Android源码分析/" style="font-size: 20px;">Android源码分析</a> <a href="/tags/Android进阶知识/" style="font-size: 20px;">Android进阶知识</a> <a href="/tags/Intellij插件开发/" style="font-size: 10px;">Intellij插件开发</a> <a href="/tags/ListView与公聊/" style="font-size: 10px;">ListView与公聊</a> <a href="/tags/多线程处理/" style="font-size: 10px;">多线程处理</a> <a href="/tags/注解/" style="font-size: 10px;">注解</a>
+					</div>
+				</section>
+				
+				
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://www.jackywang.tech/">JackWang</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+			</div>
+		</div>
+	</header>				
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">Mr Yang</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				<img lazy-src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1513413561480&amp;di=b6c307347e043052915538ae362b32c9&amp;imgtype=0&amp;src=http%3A%2F%2Fpic30.photophoto.cn%2F20140119%2F0005018372822892_b.jpg" class="js-avatar">
+			</div>
+			<hgroup>
+			  <h1 class="header-author">Mr Yang</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">被代码耽误的二逼青年</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">最新文章</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/1004145468" title="github">github</a>
+			        
+						<a class="mail" target="_blank" href="http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=1004145468@qq.com" title="mail">mail</a>
+			        
+						<a class="jianshu" target="_blank" href="http://www.jianshu.com/u/5fbebf77711c" title="jianshu">jianshu</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+      <div class="body-wrap"><article id="post-浅谈synchronized、Lock、ThreadLocal和semaphore" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/12/17/浅谈synchronized、Lock、ThreadLocal和semaphore/" class="article-date">
+  	<time datetime="2017-12-16T16:22:01.000Z" itemprop="datePublished">2017-12-16</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      浅谈synchronized、Lock、ThreadLocal和semaphore
+      
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/多线程处理/">多线程处理</a></li></ul>
+	</div>
+
+        
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/Java/">Java</a>
+	</div>
+
+
+        
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="1-背景"><a href="#1-背景" class="headerlink" title="1. 背景"></a>1. 背景</h4><blockquote>
+<p> 在进行多线程编程时，最让人头痛的无非是线程安全问题，对共享资源的访问控制，如果稍加不注意就可能导致莫名的错误,主要体现有:</p>
+<ul>
+<li>创建单例对象时，内存中可能存在多个实例。</li>
+<li>一个线程正在读取数据，由于另一个写线程的介入，可能导致读线程读取到的数据脏乱不堪。</li>
+<li>同一对象可能同时被多个线程使用，造成结果上面的偏差</li>
+</ul>
+</blockquote>
+<h4 id="2-synchronized-的介绍"><a href="#2-synchronized-的介绍" class="headerlink" title="2. synchronized 的介绍"></a>2. synchronized 的介绍</h4><blockquote>
+<p> 为了防止多线程造成需要单例化的对象存在多实例问题，synchronized作为懒汉式模式创建实例的常使用的关键字，使用如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">private SocketManager() &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private static SocketManager INSTANCE;</span><br><span class="line"></span><br><span class="line">    public static SocketManager getInstance() &#123;</span><br><span class="line">        if (INSTANCE == null) &#123;</span><br><span class="line">            synchronized (SocketManager.class) &#123;</span><br><span class="line">                if (INSTANCE == null) &#123;</span><br><span class="line">                    INSTANCE = new SocketManager();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return INSTANCE;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<h4 id="3-Lock的介绍"><a href="#3-Lock的介绍" class="headerlink" title="3. Lock的介绍"></a>3. Lock的介绍</h4><blockquote>
+<p> Lock是java中锁操作接口，比synchronized使用上面更为灵活。其主要实现类分为ReentrantLock (重入锁)和ReentrantReadWriteLock(读写锁)。其中ReentrantLock(重入锁)构造时，由于布尔参数不同又分为公平重入锁和非公平重入锁，其中非公平的重入锁处理效率比公平重入锁高，所以在创建时，一般使用ReentrantLock(false)。 另一个ReentrantReadWriteLock专门用于对读写操作的加锁(两个读线程不会冲突，两个写线程会冲突，一个读一个写线程会冲突，但是两个读线程不会冲突)，如果ReentrantLock处理能力就不够，再这个情况下使用ReentrantLock。总之，一般情况下，ReentrantLock基本就能处理问题，在读写上就可以选择使用ReentrantLock处理。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">private static ReentrantReadWriteLock reentrantReadWriteLock = new ReentrantReadWriteLock(true);</span><br><span class="line">    //HashMap 非线程安全</span><br><span class="line">    public static HashMap&lt;Integer, String&gt; pairs = new HashMap&lt;&gt;();</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    public static void setPair(int key, String value) &#123;</span><br><span class="line">        reentrantReadWriteLock.writeLock().lock();</span><br><span class="line">        pairs.put(key, value);</span><br><span class="line">        reentrantReadWriteLock.writeLock().unlock();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static String getValue(int key) &#123;</span><br><span class="line">        reentrantReadWriteLock.readLock().lock();</span><br><span class="line">        String value = pairs.get(key);</span><br><span class="line">        reentrantReadWriteLock.readLock().unlock();</span><br><span class="line">        return value;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>以下case引用于：  <a href="http://www.cnblogs.com/aishangJava/p/6555291.html" target="_blank" rel="noopener">原博客地址</a><blockquote>
+<p>Case 1 ：<br>在使用synchronized关键字的情形下，假如占有锁的线程由于要等待IO或者其他原因（比如调用sleep方法）被阻塞了，但是又没有释放锁，那么其他线程就只能一直等待，别无他法。这会极大影响程序执行效率。因此，就需要有一种机制可以不让等待的线程一直无期限地等待下去（比如只等待一定的时间 (解决方案：tryLock(long time, TimeUnit unit)) 或者 能够响应中断 (解决方案：lockInterruptibly())），这种情况可以通过 Lock 解决。</p>
+</blockquote>
+</li>
+</ul>
+<blockquote>
+<p>Case 2 ：<br>我们知道，当多个线程读写文件时，读操作和写操作会发生冲突现象，写操作和写操作也会发生冲突现象，但是读操作和读操作不会发生冲突现象。但是如果采用synchronized关键字实现同步的话，就会导致一个问题，即当多个线程都只是进行读操作时，也只有一个线程在可以进行读操作，其他线程只能等待锁的释放而无法进行读操作。因此，需要一种机制来使得当多个线程都只是进行读操作时，线程之间不会发生冲突。同样地，Lock也可以解决这种情况 (解决方案：ReentrantReadWriteLock) 。</p>
+<p>Case 3 ：<br>我们可以通过Lock得知线程有没有成功获取到锁 (解决方案：ReentrantLock) ，但这个是synchronized无法办到的。 </p>
+</blockquote>
+<h4 id="4-ThreadLocal的介绍"><a href="#4-ThreadLocal的介绍" class="headerlink" title="4. ThreadLocal的介绍"></a>4. ThreadLocal的介绍</h4><blockquote>
+<p> 前面讲的都是在多线程情况下，共享资源保持一致性，保证对象的唯一性。但是在某些情境中，同一对象需要在不同线程中相互独立，即每一个线程中都拥有该对象的一个副本。（PS： SimpleDateForma非线程安全）</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">// 测试代码</span><br><span class="line">public class Main &#123;</span><br><span class="line"></span><br><span class="line">    public static void main(String... args) &#123;</span><br><span class="line"></span><br><span class="line">        for (int i = 0; i &lt; 5; i++) &#123;</span><br><span class="line">            new Thread() &#123;</span><br><span class="line">                @Override</span><br><span class="line">                public void run() &#123;</span><br><span class="line">                    CountUtils.addCount();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;.start();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">// 没有使用ThreadLocal </span><br><span class="line">public class CountUtils &#123;</span><br><span class="line"></span><br><span class="line">    private static int countNum = 0;</span><br><span class="line"></span><br><span class="line">    public static void addCount() &#123;</span><br><span class="line">        synchronized (CountUtils.class) &#123;</span><br><span class="line">            countNum++;</span><br><span class="line">            System.out.println(Thread.currentThread().getName() + &quot;:&quot; + countNum);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 输出结果：</span><br><span class="line">Thread-1:1</span><br><span class="line">Thread-3:2</span><br><span class="line">Thread-2:3</span><br><span class="line">Thread-0:4</span><br><span class="line">Thread-4:5</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>静态字段位于全局区，同时能够被多个线程修改。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">public class CountUtils &#123;</span><br><span class="line"></span><br><span class="line">    private static ThreadLocal&lt;Integer&gt; integerThreadLocal = new InheritableThreadLocal&lt;Integer&gt;() &#123;</span><br><span class="line">        @Override</span><br><span class="line">        protected Integer initialValue() &#123;</span><br><span class="line">            return 0;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    public static void addCount() &#123;</span><br><span class="line">        synchronized (CountUtils.class) &#123;</span><br><span class="line">            int countNum = integerThreadLocal.get();</span><br><span class="line">            countNum ++ ;</span><br><span class="line">            System.out.println(Thread.currentThread().getName() + &quot;:&quot; + countNum);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 输出结果：</span><br><span class="line"></span><br><span class="line">Thread-2:1</span><br><span class="line">Thread-1:1</span><br><span class="line">Thread-3:1</span><br><span class="line">Thread-0:1</span><br><span class="line">Thread-4:1</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>总结： ThreadLocal采用Map<threadinfo，e>方式将线程操作的对象进行区分，不同的线程取值并非同一个。</threadinfo，e></p>
+</li>
+</ul>
+<h4 id="5-semaphore的介绍"><a href="#5-semaphore的介绍" class="headerlink" title="5. semaphore的介绍"></a>5. semaphore的介绍</h4><blockquote>
+<p>semaphore (信号量) 控制线程的出入问题，创建该对象时指明可用的资源数（synchronized可用资源数为1），当有资源空闲时，线程可进入，否则阻塞等待。项目中弹幕处理，维护弹幕池可用弹幕总数，当显示的弹幕已经达到弹幕总数，信号量为0，当某一弹幕移除屏幕，将弹幕控件放入弹幕控件池进行复用，并将信号量加1，定时器定时判断信号量，当信号量不为0时，从弹幕控制池取弹幕控件展示。</p>
+</blockquote>
+<ul>
+<li>tryAcquire() ： 仅在调用时此信号量存在一个可用许可，才从信号量获取许可。</li>
+<li>acquire() ： 从此信号量获取一个许可，在提供一个许可前一直将线程阻塞，否则线程被中断。</li>
+<li>release() ： 释放一个许可，将其返回给信号量。</li>
+</ul>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/12/17/基于Intellij-插件开发指南/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">&lt;</strong>
+      <div class="article-nav-title">
+        
+          基于Intellij 插件开发指南
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/12/17/那些年被迫读过的注解/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">那些年被迫读过的注解</div>
+      <strong class="article-nav-caption">&gt;</strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="ds-share share" data-thread-key="浅谈synchronized、Lock、ThreadLocal和semaphore" data-title="浅谈synchronized、Lock、ThreadLocal和semaphore" data-url="https://1004145468.github.io/2017/12/17/浅谈synchronized、Lock、ThreadLocal和semaphore/"  data-images="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1513413561480&amp;di=b6c307347e043052915538ae362b32c9&amp;imgtype=0&amp;src=http%3A%2F%2Fpic30.photophoto.cn%2F20140119%2F0005018372822892_b.jpg" data-content="浅谈synchronized、Lock、ThreadLocal和semaphore">
+    <div class="ds-share-inline">
+      <ul  class="ds-share-icons-16">
+      <!--
+      	<li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+        <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+        <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+        <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+        <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+       -->
+      </ul>
+      <div class="ds-share-icons-more">
+      </div>
+    </div>
+ </div>
+ 
+
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+      <div class="footer-left">
+        &copy; 2017 Mr Yang
+      </div>
+        <div class="footer-right">
+          <a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/1004145468" target="_blank">Mr Yang</a>
+        </div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="/js/main.js"></script>
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js"></script>
+
+
+  </div>
+</body>
+</html>
