@@ -118,7 +118,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/Android•Lottie/" style="font-size: 10px;">Android•Lottie</a> <a href="/tags/Android源码分析/" style="font-size: 20px;">Android源码分析</a> <a href="/tags/Android进阶知识/" style="font-size: 20px;">Android进阶知识</a> <a href="/tags/Intellij插件开发/" style="font-size: 10px;">Intellij插件开发</a> <a href="/tags/ListView与公聊/" style="font-size: 10px;">ListView与公聊</a> <a href="/tags/多线程处理/" style="font-size: 10px;">多线程处理</a> <a href="/tags/注解/" style="font-size: 10px;">注解</a>
+						<a href="/tags/Android•Lottie/" style="font-size: 10px;">Android•Lottie</a> <a href="/tags/Android源码分析/" style="font-size: 20px;">Android源码分析</a> <a href="/tags/Android进阶知识/" style="font-size: 20px;">Android进阶知识</a> <a href="/tags/Intellij插件开发/" style="font-size: 10px;">Intellij插件开发</a> <a href="/tags/Kotlin与Java差异化/" style="font-size: 10px;">Kotlin与Java差异化</a> <a href="/tags/Kotlin官方翻译文档/" style="font-size: 10px;">Kotlin官方翻译文档</a> <a href="/tags/Kotlin开发UI/" style="font-size: 10px;">Kotlin开发UI</a> <a href="/tags/ListView与公聊/" style="font-size: 10px;">ListView与公聊</a> <a href="/tags/多线程处理/" style="font-size: 10px;">多线程处理</a> <a href="/tags/注解/" style="font-size: 10px;">注解</a>
 					</div>
 				</section>
 				
@@ -181,6 +181,552 @@
 	</div>
 </nav>
       <div class="body-wrap">
+  
+    <article id="post-Kotlin与Java纠缠史" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/12/26/Kotlin与Java纠缠史/" class="article-date">
+  	<time datetime="2017-12-25T20:22:18.000Z" itemprop="datePublished">2017-12-25</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/12/26/Kotlin与Java纠缠史/">
+        Kotlin与Java纠缠史
+        
+      </a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="1-背景"><a href="#1-背景" class="headerlink" title="1. 背景"></a>1. 背景</h2><blockquote>
+<p>Jetbrains早在2010年推出Kotlin,在今年(2017)5月18,谷歌在今日举行的I/O开发者大会上宣布，将Kotlin语言作为安卓开发的一级编程语言,这个可爱的语言可于Java进行无缝混编。之前做过一段时间的C#和python开发，感觉三者之间总两两相似，不清楚是谁在模仿谁，谁在吃着谁的语法糖。</p>
+</blockquote>
+<h2 id="2-差异与对比"><a href="#2-差异与对比" class="headerlink" title="2. 差异与对比"></a>2. 差异与对比</h2><h3 id="2-1-构造器"><a href="#2-1-构造器" class="headerlink" title="2.1 构造器"></a>2.1 构造器</h3><table>
+<thead>
+<tr>
+<th style="text-align:center">java</th>
+<th style="text-align:center">Kotlin</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">构造器</td>
+<td style="text-align:center">主构造器</td>
+</tr>
+<tr>
+<td style="text-align:center">-</td>
+<td style="text-align:center">次构造器</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><p>java版：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">public class Model &#123;</span><br><span class="line"></span><br><span class="line">    public Model()&#123;&#125;</span><br><span class="line"></span><br><span class="line">    public Model(String name)&#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Kotlin版：</p>
+<ul>
+<li>主构造器<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">class KtModel constructor(name: String)</span><br><span class="line"></span><br><span class="line">ps：如果不私有化构造器或者注解构造器，constructor可以省略，即：</span><br><span class="line"></span><br><span class="line"> -&gt; class KtModel (name: String)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>由于Kotlin主构造器写法的出现，可以简化Java中JavaBean，关键字：data</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">data class KtModel(var id: Int, var name: String)</span><br></pre></td></tr></table></figure>
+<ul>
+<li>Kotlin版<ul>
+<li>次构造器<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">class Model&#123;</span><br><span class="line">    var mName:String? = null</span><br><span class="line">    constructor(name:String)&#123;</span><br><span class="line">        mName = name</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//由于Kotlin中有参数缺省写法，比如：</span><br><span class="line">class Model&#123;</span><br><span class="line">    var mName:String? = null</span><br><span class="line">    constructor(name:String,age:Int = 0)&#123;</span><br><span class="line">        mName = name</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//在java中实例化这个Model还是需要：</span><br><span class="line">Model model = new Model(&quot;Inke&quot;,20)</span><br><span class="line"></span><br><span class="line">//为了让java也享受到这个福利，Kotlin支持@JvmOverloads注解，为Java重载构造器</span><br><span class="line">class Model&#123;</span><br><span class="line">    var mName:String? = null</span><br><span class="line">    @JvmOverloads</span><br><span class="line">    constructor(name:String,age:Int = 0)&#123;</span><br><span class="line">        mName = name</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//此时：java调用</span><br><span class="line">Model model = new Model(&quot;Inke&quot;,20);</span><br><span class="line">Model model = new Model(&quot;Inke&quot;);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-2-自定义setter和getter"><a href="#2-2-自定义setter和getter" class="headerlink" title="2.2 自定义setter和getter"></a>2.2 自定义setter和getter</h3><blockquote>
+<p>由data声明的javabean默认实现了getter方法，如果变量为var类型也同时实现了getter方法，并且像equal() hashcode() toString()方法也自动复写了。除此，也支持自定义setter和getter方法，写法和c#的方式一样。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">class Student(var name: String, var grade: Int) &#123;</span><br><span class="line"></span><br><span class="line">    // Kotlin中的enum</span><br><span class="line">    enum class LEVEL &#123;GOOD, JUSTSOSO &#125;</span><br><span class="line">    //默认规则赋值</span><br><span class="line">    var level: LEVEL = if (grade &gt; 90) LEVEL.GOOD else LEVEL.JUSTSOSO</span><br><span class="line">        set(value) &#123;</span><br><span class="line">            field = value</span><br><span class="line">        &#125;</span><br><span class="line">        get() = field</span><br><span class="line">&#125;</span><br><span class="line">ps: 通过field代表set get的属性</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<h3 id="2-3-条件筛选"><a href="#2-3-条件筛选" class="headerlink" title="2.3 条件筛选"></a>2.3 条件筛选</h3><blockquote>
+<p>java中对某一字段类型根据不同的值进行筛选，同使用Switch“语句”，如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">switch (itemViewType) &#123;</span><br><span class="line">            case ITEM_VIEWTYPE_LINKMSG:// 带有link字段的链接消息</span><br><span class="line">                return new LinkMsgViewHolder(inflater);</span><br><span class="line">            case ITEM_VIEWTYPE_TEXTMSG_BYME:// 自己的文本消息</span><br><span class="line">                return new TextMsgByMeViewHolder(inflater);</span><br><span class="line">            case ITEM_VIEWTYPE_TEXTMSG_BYOTHER:// 别人的文本消息</span><br><span class="line">                return new TextMsgByOtherViewHolder(inflater);</span><br><span class="line">            case ITEM_VIEWTYPE_PIC_MSG_ME:// 自己的图片消息</span><br><span class="line">                return new PicMsgByMeViewHolder(inflater);</span><br><span class="line">            case ITEM_VIEWTYPE_PIC_MSG_OTHER:// 别人的图片消息</span><br><span class="line">                return new PicMsgByOtherViewHolder(inflater);</span><br><span class="line">            case ITEM_VIEWTYPE_AUDIO_MSG_ME:// 自己的语音消息</span><br><span class="line">            ...</span><br><span class="line">            &#125;</span><br></pre></td></tr></table></figure></p>
+<p>　kotlin中对某一字段类型筛选的关键字when,但它不属于语句，它属于表达式，真的是表达式哦。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">fun getWeekInfo(day: Int): String &#123;</span><br><span class="line">    //因为是函数 所以可以直接使用在return后面</span><br><span class="line">    return when (day) &#123;</span><br><span class="line">        1, 2, 3, 4, 5 -&gt; &quot;工作日&quot;</span><br><span class="line">        6, 7 -&gt; &quot;周末&quot;</span><br><span class="line">        else -&gt; &quot;unknow&quot;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">在Kotlin中几乎一切都是表达式，所以上面更有简化版：</span><br><span class="line"></span><br><span class="line">fun getWeekInfo(day: Int) = when (day) &#123;</span><br><span class="line">        1, 2, 3, 4, 5 -&gt; &quot;工作日&quot;</span><br><span class="line">        6, 7 -&gt; &quot;周末&quot;</span><br><span class="line">        else -&gt; &quot;unknow&quot;  //与java的default不能，else必须写，除非密封类(sealed class)可以不写，后面会详细讲解。</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>难道仅仅这些就够了，错，还有厉害的！前方高能。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">fun getWeekInfo(student: Student) = when &#123;</span><br><span class="line">    student.name.equals(&quot;马云&quot;) -&gt; &quot;考什么试！&quot;</span><br><span class="line">    student.grade &gt;= 60 -&gt; &quot;Pass&quot;</span><br><span class="line">    student.grade &lt; 60 -&gt; &quot;fail&quot;</span><br><span class="line">    student is Student -&gt; &quot;is 相当于 instanceof&quot;</span><br><span class="line">    else -&gt; &quot;unknow&quot;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">1. when可以不一定带参数，就使用方法参数</span><br><span class="line">2. when中的条件不需要同一种方式判断，只需要返回boolean类型</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<h3 id="2-4-循环结构"><a href="#2-4-循环结构" class="headerlink" title="2.4 循环结构"></a>2.4 循环结构</h3><table>
+<thead>
+<tr>
+<th style="text-align:center">语言</th>
+<th style="text-align:center">次数迭代</th>
+<th style="text-align:center">对象池迭代</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">java</td>
+<td style="text-align:center">支持</td>
+<td style="text-align:center">支持</td>
+</tr>
+<tr>
+<td style="text-align:center">kotlin</td>
+<td style="text-align:center">强支持</td>
+<td style="text-align:center">支持</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>java版本两种循环方式的写法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">for (int i = 0; i &lt; 10; i++) &#123;</span><br><span class="line">        //TODO</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">for (String arg : args) &#123;</span><br><span class="line">        //TODO</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
+<p>kotlin版本，与python写法相似<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">// 次数迭代</span><br><span class="line">for(i in 1..10)&#123;  //[1，10]区间往上遍历</span><br><span class="line">        print(i)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">for(i in 10 downTo 1)&#123; // [1,10]区间往下遍历</span><br><span class="line">        print(i)</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">for(i in 1 until 10)&#123; // [1,10)区间往上遍历</span><br><span class="line">        print(i)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">for(i in 1..10 step 2)&#123; //设置步数往上走</span><br><span class="line">        print(i)</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">//对象池迭代</span><br><span class="line">for (arg in args)&#123;</span><br><span class="line">        print(arg)</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<h3 id="2-5-引入静态方法"><a href="#2-5-引入静态方法" class="headerlink" title="2.5 引入静态方法"></a>2.5 引入静态方法</h3><blockquote>
+<p>引入静态方法的目的：</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">java</th>
+<th style="text-align:center">Kotlin</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">工具方法</td>
+<td style="text-align:center">类的扩展</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>引入方式：</p>
+<ul>
+<li>java: import static com.meelive.ingkee.base.utils.guava.Preconditions.checkArgument;</li>
+<li>Kotlin: import com.inke.utils.showToast</li>
+</ul>
+<p>静态方法的写法</p>
+<ul>
+<li>java：纯工具类的写法</li>
+<li>kotlin：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">fun Context.showToast(message: String) : Toast &#123;</span><br><span class="line">    var toast : Toast = Toast.makeText(this,message,Toast.LENGTH_SHORT)</span><br><span class="line">    toast.setGravity(Gravity.CENTER,0,0)</span><br><span class="line">    toast.show()</span><br><span class="line">    return toast</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">作为Context类的拓展方法，在Activity,Service中，可以直接使用，面向对象的封装性显得更加的严实（个人看法）。</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</blockquote>
+<h3 id="2-6-类型转换"><a href="#2-6-类型转换" class="headerlink" title="2.6 类型转换"></a>2.6 类型转换</h3><blockquote>
+<p>java中对于类型的转化，写的特别想吐的语句如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Person p = new Person();</span><br><span class="line">if(p instanceof Student)&#123;</span><br><span class="line">    Student student = (Student) p;</span><br><span class="line">    String id = student.uid;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>然后看看Kotlin的模仿版：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">val p = Person()</span><br><span class="line">if (p is Student) &#123;</span><br><span class="line">    val student = p as Student</span><br><span class="line">    var uid = student.uid</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>瞪大眼睛看看简化版，找不同的时间到了！<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">val p = Person()</span><br><span class="line">if (p is Student) &#123;</span><br><span class="line">    var uid = p.uid</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">is 进行判断后，Person类实例就已经装成Student类实例了，这就是Kotlin的智能类型转化。</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<h3 id="2-7-单例"><a href="#2-7-单例" class="headerlink" title="2.7 单例"></a>2.7 单例</h3><ul>
+<li><p>java版单例（懒汉式和饿汉式），懒汉式如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">public static RoomManager ins() &#123;</span><br><span class="line">    return SingletonHolder.INSTANCE;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">private static class SingletonHolder &#123;</span><br><span class="line">    private static final RoomManager INSTANCE = new RoomManager();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>kotlin版</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">class AppManager private constructor(var info: String) &#123;</span><br><span class="line">    companion object &#123;</span><br><span class="line">        private var INSTANCE: AppManager? = null</span><br><span class="line">        fun getInstance(info: String): AppManager &#123;</span><br><span class="line">            if (INSTANCE == null) &#123;</span><br><span class="line">                synchronized(AppManager::class.java) &#123;</span><br><span class="line">                    if (INSTANCE == null) &#123;</span><br><span class="line">                        INSTANCE = AppManager(info)</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            return INSTANCE!!</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    fun getPhoneInfo(arg: String): String? &#123;</span><br><span class="line">        return null</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<blockquote>
+<p>如果是无参单例，有更为简单的写法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * Created by YangLang on 2017/7/29.</span><br><span class="line"> */</span><br><span class="line">object AppManager &#123;</span><br><span class="line"></span><br><span class="line">    fun getPhoneInfo(arg: String): String? &#123;</span><br><span class="line">        return null</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<h3 id="2-8-正则表达式"><a href="#2-8-正则表达式" class="headerlink" title="2.8 正则表达式"></a>2.8 正则表达式</h3><ul>
+<li><p>java的写法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">String info = &quot;12,34,56.789&quot;;</span><br><span class="line">String[] split = info.split(&quot;[,.]&quot;);</span><br><span class="line">for (String s : split) &#123;</span><br><span class="line">    System.out.println(s);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">java默认使用正则去切割</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Kotlin写法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"> var info = &quot;12,34,56.789&quot;</span><br><span class="line">    for (s in info.split(&quot;,&quot;,&quot;.&quot;)) &#123;</span><br><span class="line">        println(s)</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">kotlin 为了编程更加口头化，生活化，默认不使用正则，上面写法的理解是，把info用&quot;,&quot;或者&quot;.&quot;进行分割。</span><br><span class="line"></span><br><span class="line">//进一步说明</span><br><span class="line">info.split(&quot;.&quot;)</span><br><span class="line">1. 在java中输出为空，因为.在正则规则中为统配符</span><br><span class="line">2. 在kotlin中输出为12,34,56和789，因为Kotlin默认不使用正则，所以.只是一个普通的字符。</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="2-9-嵌套类和内部类"><a href="#2-9-嵌套类和内部类" class="headerlink" title="2.9 嵌套类和内部类"></a>2.9 嵌套类和内部类</h3><blockquote>
+<p>说明： 嵌套类不含有外部类的引用，内部类拥有外部类的引用，正因为这样，也可以造成Activity没有释放，而内存泄漏问题。</p>
+<ul>
+<li>java<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">public class Outter &#123;</span><br><span class="line"></span><br><span class="line">   //包含Outter类的引用,可以使用Outter的方法</span><br><span class="line">    class Intter&#123;&#125;</span><br><span class="line"></span><br><span class="line">    // 不包含Outter类引用，不能使用Outter的方法</span><br><span class="line">    static class NotIntter&#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</blockquote>
+<ul>
+<li>Kotlin<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">class Outter &#123;</span><br><span class="line"></span><br><span class="line">    inner class Intter</span><br><span class="line"></span><br><span class="line">    class NotIntter</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<blockquote>
+<p>java默认为内部类，Kotlin默认为嵌套类，一定程度的避免造成内存泄漏无意识写法。</p>
+</blockquote>
+<h3 id="2-10-密封类"><a href="#2-10-密封类" class="headerlink" title="2.10 密封类"></a>2.10 密封类</h3><blockquote>
+<p>密封类的概念和C#一样，密封类可以被继承，但本身不能被实例化。所有的子类必须在同一文件中，相当于把密封类的子类都封装在一块，可以配合when使用。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sealed class BaseModel&#123;&#125;</span><br><span class="line">class FirstModel:BaseModel()&#123;&#125;</span><br><span class="line">class SecondModel:BaseModel()&#123;&#125;</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">fun justDo(baseModel: BaseModel) = when(baseModel)&#123;</span><br><span class="line">    is FirstModel -&gt; &quot;&quot;</span><br><span class="line">    is SecondModel -&gt; &quot;&quot;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">没有使用else,但是必须要写全baseModel的子类，如果编写期间新创建一个类继承BaseModel，此处when直接报错，密封类的这种特性，保证编写when表达式时，可以无一疏漏的考虑到每一种情况，约束代码的编写。</span><br></pre></td></tr></table></figure>
+<h3 id="2-11-代理"><a href="#2-11-代理" class="headerlink" title="2.11 代理"></a>2.11 代理</h3><table>
+<thead>
+<tr>
+<th style="text-align:center">代理方式\语言</th>
+<th style="text-align:center">java</th>
+<th style="text-align:center">Kotlin</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"> 静态代理</td>
+<td style="text-align:center">√</td>
+<td style="text-align:center">√</td>
+</tr>
+<tr>
+<td style="text-align:center"> 动态代理</td>
+<td style="text-align:center">√</td>
+<td style="text-align:center">√</td>
+</tr>
+<tr>
+<td style="text-align:center">属性代理</td>
+<td style="text-align:center">×</td>
+<td style="text-align:center">√</td>
+</tr>
+<tr>
+<td style="text-align:center">标准代理</td>
+<td style="text-align:center">×</td>
+<td style="text-align:center">√</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>这里不讲java的设计模式，主要关注Kotlin的代理模式，从类代理、属性代理、标准代理三个方面</p>
+<ul>
+<li>类代理<br>假如我们需要创建AnimatorListener的实例，Java中最常见的方式可能是匿名内部类，我们需要重载它的四个方法，虽然我们不都用，这样代码就显得多余。Kotlin中就可以用该接口得一个实现类代为重载，并处理自己的TODO。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">class MyAnimatorListener(var animatorListener: Animator.AnimatorListener):Animator.AnimatorListener by animatorListener&#123;</span><br><span class="line"></span><br><span class="line">    override fun onAnimationEnd(animation: Animator?) &#123;</span><br><span class="line">        //TODO 可以进行预处理</span><br><span class="line">        animatorListener.onAnimationEnd(animation)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">接口Animator.AnimatorListener需要的方法由传入参数animatorListener实现了，该MyAnimatorListener也通过关键字by，将需要实现的方法让animatorListener代为实现，重载方法后可以做预处理操作。</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</blockquote>
+<ul>
+<li>属性代理<blockquote>
+<p>当使用val修饰属性时，表明属性为不可修改，代理类继承ReadOnlyProperty&lt;被代理类，类型&gt;类</p>
+</blockquote>
+</li>
+</ul>
+<blockquote>
+<p>当使用var修饰时，属性可修改，代理类继承ReadWriteProperty<water,boolean><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * Created by YangLang on 2017/7/29.</span><br><span class="line"> */</span><br><span class="line">fun main(args: Array&lt;String&gt;) &#123;</span><br><span class="line">    var p = Person(&quot;inke&quot;, 21)</span><br><span class="line">    println(&quot;是否已经成人： $&#123;p.isAdult&#125;&quot;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Person(var name: String, var age: Int) &#123;</span><br><span class="line"></span><br><span class="line">    var isAdult: Boolean by isAdultProperty()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class isAdultProperty : ReadWriteProperty&lt;Person, Boolean&gt; &#123;</span><br><span class="line">    override fun setValue(thisRef: Person, property: KProperty&lt;*&gt;, value: Boolean) &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    override fun getValue(thisRef: Person, property: KProperty&lt;*&gt;): Boolean &#123;</span><br><span class="line">        return thisRef.age &gt; 18</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></water,boolean></p>
+</blockquote>
+<ul>
+<li>标准代理<blockquote>
+<p>Kotlin标准代理有lazy(),observable(),notNull().. 所有这样Kotlin自建代理都在delegates类下，主要讲lazy（懒加载） 在java中使用supplier和suppliers进行懒加载（延时求值），在kotlin中通过方法lazy直接延时求值，更快更强！！</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">class InfoConfig &#123;</span><br><span class="line">    val info: String by lazy &#123;</span><br><span class="line">        &quot;Inke info&quot;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">fun main(args: Array&lt;String&gt;) &#123;</span><br><span class="line">    print(InfoConfig().info)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">第一次获取info值时，会通过lazy函数传入的函数参数进行求值，以后再获取该值时，直接返回，所以懒加载可进行复杂计算。</span><br></pre></td></tr></table></figure>
+</blockquote>
+</li>
+</ul>
+<h3 id="2-12-属性赋初值问题"><a href="#2-12-属性赋初值问题" class="headerlink" title="2.12 属性赋初值问题"></a>2.12 属性赋初值问题</h3><blockquote>
+<p>属性不管申明为val还是var都必须赋初值，我们只能被迫写成 var info:String? = null。但是实际情况下有些属性不允许赋予无意义的初值如null，我总结有三种方式处理（可能不全面）：</p>
+</blockquote>
+<ul>
+<li>lateinit var info: String(只能用在var类型上)</li>
+<li>class Student(var name: String, var age: Int){ val isAudit = age &gt; 18} (可用在var或者val上，但只是在初始化时赋一次值~)</li>
+<li>val info: String by lazy {<pre><code>&quot;Inke info&quot;
+</code></pre> } （只能用在val类型上）</li>
+</ul>
+<h3 id="2-13-lambda的概要（对象引用，数组用法）"><a href="#2-13-lambda的概要（对象引用，数组用法）" class="headerlink" title="2.13 lambda的概要（对象引用，数组用法）"></a>2.13 lambda的概要（对象引用，数组用法）</h3><blockquote>
+<p>用lambda表达式创建函数“变形体”<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var add = &#123; x: Int, y: Int -&gt; x + y &#125;</span><br><span class="line">print(add(1,2))</span><br></pre></td></tr></table></figure></p>
+<p>lambda缩写演史<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">// 1. 匿名内部类</span><br><span class="line">rb_home.setOnClickListener(object:View.OnClickListener&#123;</span><br><span class="line">            override fun onClick(v: View?) &#123;</span><br><span class="line">            &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">// 2. 如果内部类中只有一个方法,缩写成lambda表达式</span><br><span class="line"> rb_home.setOnClickListener(&#123;v -&gt; Unit&#125;)</span><br><span class="line"> </span><br><span class="line">// 3. 如果函数参数最后一个参数为lambda表达式，可以提取放在函数参数括号外面</span><br><span class="line"> rb_home.setOnClickListener()&#123;v -&gt; Unit&#125;</span><br><span class="line"> </span><br><span class="line"> // 4. 如果函数参数括号为空，可以省略</span><br><span class="line"> rb_home.setOnClickListener&#123;v -&gt; Unit&#125;</span><br><span class="line"> </span><br><span class="line"> // 5. 如果lambda表达式形参咩有使用，可以省略</span><br><span class="line"> rb_home.setOnClickListener&#123;Unit&#125; &lt;==&gt; rb_home.setOnClickListener&#123;//TODO&#125;</span><br></pre></td></tr></table></figure></p>
+<p>可以根据以上的省略原则可以定义我们自己的的函数。如在java中做版本的判断，我们会写：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">if (Build.VERSION.SDK_INT &gt;= Build.VERSION_CODES.JELLY_BEAN) &#123;</span><br><span class="line">    webSettings.setAllowUniversalAccessFromFileURLs(true);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">这样写起来不流程，而且不易复用</span><br></pre></td></tr></table></figure></p>
+<p>Kotlin上面可以这样定义函数<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">inline fun UP_VERSIONJELLY_BEAN(function: () -&gt; Unit)&#123;</span><br><span class="line">    if(Build.VERSION.SDK_INT &gt;= Build.VERSION_CODES.JELLY_BEA)&#123;</span><br><span class="line">        function()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">在使用时，可以毫不犹豫的写成这样：</span><br><span class="line">UP_VERSIONJELLY_BEAN&#123;</span><br><span class="line">    //TODO</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<h3 id="2-14-反射中优质提升"><a href="#2-14-反射中优质提升" class="headerlink" title="2.14 反射中优质提升"></a>2.14 反射中优质提升</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">public class Test&lt;T&gt; &#123;</span><br><span class="line"></span><br><span class="line">    public Test() &#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>以上的泛型写法，在java中运行时由于类型擦除的原因，无法确定T的类型，很难获取该对象的字节码对象，不过在早两天看到Guava支持运行时获取泛型类型，通过TypeToken工具类。但是在Kotlin可以轻松解决这样问题，通过标注关键字reified。</p>
+</blockquote>
+<ul>
+<li><a href="http://ifeve.com/guava-reflection/" target="_blank" rel="noopener">TypeToken</a></li>
+<li>reified关键字使用<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">inline fun &lt;reified T: Activity&gt; Activity.newIntent() &#123;</span><br><span class="line">    val intent = Intent(this, T::class.java)</span><br><span class="line">    startActivity(intent)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="2-15-let-apply-run-with的区别"><a href="#2-15-let-apply-run-with的区别" class="headerlink" title="2.15 let apply run with的区别"></a>2.15 let apply run with的区别</h3><p><a href="http://www.jianshu.com/p/28ce69d58fea" target="_blank" rel="noopener">传送门地址</a></p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Kotlin与Java差异化/">Kotlin与Java差异化</a></li></ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/Kotlin/">Kotlin</a>
+	</div>
+
+
+      
+      <div class="clearfix"></div>
+    </div>
+      
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+  
+    <article id="post-Kotlin（android）协程中文翻译" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/12/23/Kotlin（android）协程中文翻译/" class="article-date">
+  	<time datetime="2017-12-22T16:27:33.000Z" itemprop="datePublished">2017-12-22</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/12/23/Kotlin（android）协程中文翻译/">
+        Kotlin（android）协程中文翻译
+        
+      </a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="1-官方文档地址"><a href="#1-官方文档地址" class="headerlink" title="1.官方文档地址"></a>1.官方文档地址</h2><blockquote>
+<p><a href="https://github.com/Kotlin/kotlinx.coroutines/blob/master/ui/coroutines-guide-ui.md#android" target="_blank" rel="noopener">https://github.com/Kotlin/kotlinx.coroutines/blob/master/ui/coroutines-guide-ui.md#android</a></p>
+</blockquote>
+<h2 id="2-协程的配置"><a href="#2-协程的配置" class="headerlink" title="2. 协程的配置"></a>2. 协程的配置</h2><blockquote>
+<p>compile “org.jetbrains.kotlinx:kotlinx-coroutines-android:0.18”</p>
+</blockquote>
+<h2 id="3-开启协程"><a href="#3-开启协程" class="headerlink" title="3.开启协程"></a>3.开启协程</h2><blockquote>
+<p>Coroutines are experimental feature in Kotlin. You need to enable coroutines in Kotlin compiler by adding the following line to gradle.properties file。<br>协程是Kotlin一项实验性的功能，你需要打开在项目工程 gradle.properties中声明打开。</p>
+<p>添加代码： kotin.coroutines = enable</p>
+</blockquote>
+<h3 id="4-在UIContext启动协程，可以更新UI"><a href="#4-在UIContext启动协程，可以更新UI" class="headerlink" title="4. 在UIContext启动协程，可以更新UI"></a>4. 在UIContext启动协程，可以更新UI</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">import kotlinx.coroutines.experimental.CommonPool  // 运行在线程池中一个协程</span><br><span class="line">import kotlinx.coroutines.experimental.Unconfined // 在当前默认的协程中运行</span><br><span class="line">import kotlinx.coroutines.experimental.android.UI //运行在可控制UI的协程中</span><br><span class="line"></span><br><span class="line"> ...</span><br><span class="line"> </span><br><span class="line"> launch(UI) &#123; // launch coroutine in UI context</span><br><span class="line">        for (i in 10 downTo 1) &#123; // countdown from 10 to 1 </span><br><span class="line">            hello.text = &quot;Countdown $i ...&quot; // update text</span><br><span class="line">            delay(500) // wait half a second</span><br><span class="line">        &#125;</span><br><span class="line">        hello.text = &quot;Done!&quot;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h3 id="5-取消一个协程任务"><a href="#5-取消一个协程任务" class="headerlink" title="5. 取消一个协程任务"></a>5. 取消一个协程任务</h3><blockquote>
+<p>We can keep a reference to the Job object that launch function returns and use it to cancel coroutine when we want to stop it. </p>
+<p>我们能持有协程的引用，通过它去获取协程处理后的结果或取消协程<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">    val job = launch(UI) &#123; // launch coroutine in UI context</span><br><span class="line">        for (i in 10 downTo 1) &#123; // countdown from 10 to 1 </span><br><span class="line">            hello.text = &quot;Countdown $i ...&quot; // update text</span><br><span class="line">            delay(500) // wait half a second</span><br><span class="line">        &#125;</span><br><span class="line">        hello.text = &quot;Done!&quot;</span><br><span class="line">    &#125;</span><br><span class="line">    // cancel coroutine on click</span><br><span class="line">   job.cancel() </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<hr>
+<h3 id="6-在UI线程中使用actor"><a href="#6-在UI线程中使用actor" class="headerlink" title="6. 在UI线程中使用actor"></a>6. 在UI线程中使用actor</h3><h4 id="1-模式一：-At-most-one-concurrent-job（最多执行一次）"><a href="#1-模式一：-At-most-one-concurrent-job（最多执行一次）" class="headerlink" title="1. 模式一： At most one concurrent job（最多执行一次）"></a>1. 模式一： At most one concurrent job（最多执行一次）</h4><blockquote>
+<p>使用情况：View防止被多次点击，造成没必要的浪费。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">fun View.onClick(action: suspend () -&gt; Unit) &#123;</span><br><span class="line">    // launch one actor</span><br><span class="line">    val eventActor = actor&lt;Unit&gt;(UI) &#123;</span><br><span class="line">        for (event in channel) action()</span><br><span class="line">    &#125;</span><br><span class="line">    // install a listener to activate this actor</span><br><span class="line">    setOnClickListener &#123; </span><br><span class="line">        eventActor.offer(Unit)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="官方解释："><a href="#官方解释：" class="headerlink" title="官方解释："></a>官方解释：</h4><blockquote>
+<p>Try clicking repeatedly on a circle in this version of the code. The clicks are just ignored while the countdown animation is running. This happens because the actor is busy with an animation and does not receive from its channel. By default, an actor’s mailbox is backed by RendezvousChannel, whose offer operation succeeds only when the receive is active.</p>
+<p>在上面的这份代码中，进行循环的点击，当一次点击的倒计时动画进行时，后续频繁点击事件将会被忽略。原因是因为此actor正在忙于处理该动画，并且将receive状态设置为unactive，当有actor.offer()时，由于此actor的receive状态为unactive，所以事件就会被抛弃！</p>
+</blockquote>
+<h4 id="模式二：-Event-conflation（事件地合并）"><a href="#模式二：-Event-conflation（事件地合并）" class="headerlink" title="模式二： Event conflation（事件地合并）"></a>模式二： Event conflation（事件地合并）</h4><blockquote>
+<p>Sometimes it is more appropriate to process the most recent event, instead of just ignoring events while we were busy processing the previous one. The actor coroutine builder accepts an optional capacity parameter that controls the implementation of the channel that this actor is using for its mailbox. The description of all the available choices is given in documentation of the Channel() factory function.use ConflatedChannel by passing Channel.CONFLATED capacity value. </p>
+<p>当我们正在执行一次点击的动画时，后续频繁点击事件更合理的处理方式是接受在动画结束期间的最后一次点击事件，而不是像上面那样直接被忽视。actor协程在创建时，可接受一个参数来控制它内部的channel（也称为信箱）的实现方式。通过传递参数Channel.CONFLATED来创建一个ConflatedChannel（channel的一种实现类型）</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">fun Node.onClick(action: suspend (MouseEvent) -&gt; Unit) &#123;</span><br><span class="line">    // launch one actor to handle all events on this node</span><br><span class="line">    val eventActor = actor&lt;MouseEvent&gt;(UI, capacity = Channel.CONFLATED) &#123; // &lt;--- Changed here</span><br><span class="line">        for (event in channel) action(event) // pass event to action</span><br><span class="line">    &#125;</span><br><span class="line">    // install a listener to offer events to this actor</span><br><span class="line">    onMouseClicked = EventHandler &#123; event -&gt;</span><br><span class="line">        eventActor.offer(event)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>Now, if a circle is clicked while the animation is running, it restarts animation after the end of it. Just once. Repeated clicks while the animation is running are conflated and only the most recent event gets to be processed.</p>
+<p>当一次动画没有结束，在这期间的点击事件都将被合并成一次，当动画结束后，又会仅此一次的启动该动画！</p>
+</blockquote>
+<h4 id="模式三：Sequence-Event-串行事件"><a href="#模式三：Sequence-Event-串行事件" class="headerlink" title="模式三：Sequence Event(串行事件)"></a>模式三：Sequence Event(串行事件)</h4><blockquote>
+<p>You can experiment with capacity parameter in the above line to see how it affects the behaviour of the code. Setting capacity = Channel.UNLIMITED creates a coroutine with LinkedListChannel mailbox that buffers all events. In this case, the animation runs as many times as the circle is clicked.</p>
+<p> 上面我们看到了通过actor来创建协程，参数capacity来控制channel（信箱）的类型。你能够尝试capacity的不同值来体验它带来的效果。比如，我们设置capacity=Channel.UNLIMITED 来创建一个内部的channel（信箱）类型为LinkedListChannel，顾名思义它能接受我们的每一次事件。在这样的情景下，我们点击按钮多少次，动画将会执行多少次！</p>
+</blockquote>
+<h4 id="模式四：-more-type-通过修改capacity的类型，创建不同的channel"><a href="#模式四：-more-type-通过修改capacity的类型，创建不同的channel" class="headerlink" title="模式四： more type(通过修改capacity的类型，创建不同的channel)"></a>模式四： more type(通过修改capacity的类型，创建不同的channel)</h4><h3 id="7-Blocking-operation-块级操作"><a href="#7-Blocking-operation-块级操作" class="headerlink" title="7. Blocking operation(块级操作)"></a>7. Blocking operation(块级操作)</h3><h4 id="官方给出的事例："><a href="#官方给出的事例：" class="headerlink" title="官方给出的事例："></a>官方给出的事例：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">fun fib(x: Int): Int =</span><br><span class="line">    if (x &lt;= 1) 1 else fib(x - 1) + fib(x - 2)</span><br><span class="line">    </span><br><span class="line">fun setup(hello: Text, fab: Circle) &#123;</span><br><span class="line">    var result = &quot;none&quot; // the last result</span><br><span class="line">    // counting animation </span><br><span class="line">    launch(UI) &#123;</span><br><span class="line">        var counter = 0</span><br><span class="line">        while (true) &#123;</span><br><span class="line">            hello.text = &quot;$&#123;++counter&#125;: $result&quot;</span><br><span class="line">            delay(100) // update the text every 100ms</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    // compute the next fibonacci number of each click</span><br><span class="line">    var x = 1</span><br><span class="line">    fab.onClick &#123;</span><br><span class="line">        result = &quot;fib($x) = $&#123;fib(x)&#125;&quot;</span><br><span class="line">        x++</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>Issume（产生问题）: Try clicking on the circle in this example. After around 30-40th click our naive computation is going to become quite slow and you would immediately see how the UI thread freezes, because the animation stops running during UI freeze.</p>
+<p>根据上面的代码，如果我们快速点击30-40次，计算就会变得越来越慢，UI线程慢慢被冻结，动画也就会停止运行。</p>
+<p>Solusation（解决方案）: Blocking Operation（块级操作）<br>The fix for the blocking operations on the UI thread is quite straightforward with coroutines. We’ll convert our “blocking” fib function to a non-blocking suspending function that runs the computation in the background thread by using run function to change its execution context to CommonPool of background threads. Notice, that fib function is now marked with suspend modifier. It does not block the coroutine that it is invoked from anymore, but suspends its execution when the computation in the background thread is working</p>
+<p>在协程中通过块级操作直接来处理UI，我们可以使用“run”函数来改变它的执行上下文到一个后台线程（CommonPool），从而将一个阻塞的“fib”函数转化为一个不被阻塞的挂起函数。注意，此时的“fib”函数被suspend修饰，这个函数使用时不会阻塞协程，当后台线程计算时，它会挂起此函数的执行，如下：</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">suspend fun fib(x: Int): Int = run(CommonPool) &#123;</span><br><span class="line">    if (x &lt;= 1) 1 else fib(x - 1) + fib(x - 2)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>Note（说明）：You can run this code and verify that UI is not frozen while large Fibonacci numbers are being computed. However, this code computes fib somewhat slower, because every recursive call to fib goes via run. This is not a big problem in practice, because run is smart enough to check that the coroutine is already running in the required context and avoids overhead of dispatching coroutine to a different thread again. It is an overhead nonetheless, which is visible on this primitive code that does nothing else, but only adds integers in between invocations to run. For some more substantial code, the overhead of an extra run invocation is not going to be significant.</p>
+<p>你能运行这份代码，验证在计算大数字时，Ui线程会不会阻塞。然而，它计算fib时会变得更慢，因为每一次回调fib函数时都会运行run方法，但是它并不是一个大问题，因为run函数是非常智能的，它会检查当前管理并正在运行的协程，避免此协程在不同的线程中重复的运行。尽管原始代码中在协程中反复的使用，但是不造成什么影响，因为每一个协程持有的是这份代码的Int值，对于一些更实质性的代码，额外运行调用的开销并不显著。</p>
+</blockquote>
+<h4 id="为了不反复的调用run函数，当然你也可以这样："><a href="#为了不反复的调用run函数，当然你也可以这样：" class="headerlink" title="为了不反复的调用run函数，当然你也可以这样："></a>为了不反复的调用run函数，当然你也可以这样：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">suspend fun fib(x: Int): Int = run(CommonPool) &#123;</span><br><span class="line">    fibBlocking(x)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">fun fibBlocking(x: Int): Int = </span><br><span class="line">    if (x &lt;= 1) 1 else fibBlocking(x - 1) + fibBlocking(x - 2)</span><br></pre></td></tr></table></figure>
+<h3 id="8-Lifecycle-and-coroutine-parent-child-hierarchy-生命周期绑定与父子继承关系"><a href="#8-Lifecycle-and-coroutine-parent-child-hierarchy-生命周期绑定与父子继承关系" class="headerlink" title="8. Lifecycle and coroutine parent-child hierarchy(生命周期绑定与父子继承关系)"></a>8. Lifecycle and coroutine parent-child hierarchy(生命周期绑定与父子继承关系)</h3><blockquote>
+<p>（Issume: ）A typical UI application has a number of elements with a lifecycle. Windows, UI controls, activities, views, fragments and other visual elements are created and destroyed. A long-running coroutine, performing some IO or a background computation, can retain references to the corresponding UI elements for longer than it is needed, preventing garbage collection of the whole trees of UI objects that were already destroyed and will not be displayed anymore.</p>
+<p>(问题)传统的UI应用都会包含大量拥有生命周期的元素，如窗口，界面，控件… 当这个元素不在需要的时候，协程可能存在它的引用，为了解决这个问题。</p>
+<p>（solution）The natural solution to this problem is to associate a Job object with each UI object that has a lifecycle and create all the coroutines in the context of this job.</p>
+<p>（解决办法：）将协程与每一个控件元素的生命周期绑定。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">interface JobHolder &#123;</span><br><span class="line">    val job: Job</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">class MainActivity : AppCompatActivity(), JobHolder &#123;</span><br><span class="line">    override val job: Job = Job() // the instance of a Job for this activity</span><br><span class="line"></span><br><span class="line">    override fun onDestroy() &#123;</span><br><span class="line">        super.onDestroy()</span><br><span class="line">        job.cancel() // cancel the job when activity is destroyed</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    // the rest of code</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">val View.contextJob: Job</span><br><span class="line">    get() = (context as? JobHolder)?.job ?: NonCancellable</span><br></pre></td></tr></table></figure>
+<h4 id="这样的话，每一个控件都与该控件所在的Activity中的Job关联起来了-使用如下："><a href="#这样的话，每一个控件都与该控件所在的Activity中的Job关联起来了-使用如下：" class="headerlink" title="这样的话，每一个控件都与该控件所在的Activity中的Job关联起来了,使用如下："></a>这样的话，每一个控件都与该控件所在的Activity中的Job关联起来了,使用如下：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">fun View.onClick(action: suspend () -&gt; Unit) &#123;</span><br><span class="line">    // launch one actor as a parent of the context job</span><br><span class="line">    val eventActor = actor&lt;Unit&gt;(contextJob + UI, capacity = Channel.CONFLATED) &#123;</span><br><span class="line">        for (event in channel) action()</span><br><span class="line">    &#125;</span><br><span class="line">    // install a listener to activate this actor</span><br><span class="line">    setOnClickListener &#123;</span><br><span class="line">        eventActor.offer(Unit)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="官方解释"><a href="#官方解释" class="headerlink" title="官方解释"></a>官方解释</h5><blockquote>
+<p>Notice how contextJob + UI expression is used to start an actor in the above code. It defines a coroutine context for our new actor that includes the job and the UI dispatcher. The coroutine that is started by this actor(contextJob + UI) expression is going to become a child of the job of the corresponding context. When the activity is destroyed and its job is cancelled all its children coroutines are cancelled, too.</p>
+<p>它包含两个上下文contextJob + UI来创建一个协程actor对象，该协程将会成为contextJob的子类，当Activity被销毁，contextJob会被取消，那么它的子类协程都将会被取消。</p>
+</blockquote>
+<h3 id="9-Starting-coroutine-in-UI-event-handlers-without-dispatch（在协程中不使用调度器）"><a href="#9-Starting-coroutine-in-UI-event-handlers-without-dispatch（在协程中不使用调度器）" class="headerlink" title="9.Starting coroutine in UI event handlers without dispatch（在协程中不使用调度器）"></a>9.Starting coroutine in UI event handlers without dispatch（在协程中不使用调度器）</h3><h5 id="使用调度器的情况：-默认使用"><a href="#使用调度器的情况：-默认使用" class="headerlink" title="使用调度器的情况：(默认使用)"></a>使用调度器的情况：(默认使用)</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">fun setup(hello: Text, fab: Circle) &#123;</span><br><span class="line">    fab.onMouseClicked = EventHandler &#123;</span><br><span class="line">        println(&quot;Before launch&quot;)</span><br><span class="line">        launch(UI) &#123; </span><br><span class="line">            println(&quot;Inside coroutine&quot;)</span><br><span class="line">            delay(100)</span><br><span class="line">            println(&quot;After delay&quot;)</span><br><span class="line">        &#125; </span><br><span class="line">        println(&quot;After launch&quot;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Before launch</span><br><span class="line">After launch</span><br><span class="line">Inside coroutine</span><br><span class="line">After delay</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>However, in this particular case when coroutine is started from an event handler and there is no other code around it, this extra dispatch does indeed add an extra overhead without bringing any additional value. In this case an optional CoroutineStart parameter to launch, async and actor coroutine builders can be used for performance optimization. Setting it to the value of CoroutineStart.UNDISPATCHED has the effect of starting to execute coroutine immediately until its first suspension point as the following example shows:</p>
+<p>在上述案例中，只有等EventHandler把事情处理完毕后，才开始协程，这种额外的调度确实增加了额外的开销而没有带来任何附加价值。我们可以通过参数CoroutineStart来控制，此参数受用与launch、async、actor。设置 CoroutineStart.UNDISPATCHED 将马上开始协程，知道遇到挂载点为止。代码如下：</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">fun setup(hello: Text, fab: Circle) &#123;</span><br><span class="line">    fab.onMouseClicked = EventHandler &#123;</span><br><span class="line">        println(&quot;Before launch&quot;)</span><br><span class="line">        launch(UI, CoroutineStart.UNDISPATCHED) &#123; // &lt;--- Notice this change</span><br><span class="line">            println(&quot;Inside coroutine&quot;)</span><br><span class="line">            delay(100)                            // &lt;--- And this is where coroutine suspends      </span><br><span class="line">            println(&quot;After delay&quot;)</span><br><span class="line">        &#125;</span><br><span class="line">        println(&quot;After launch&quot;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Before launch</span><br><span class="line">Inside coroutine</span><br><span class="line">After launch</span><br><span class="line">After delay</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Kotlin官方翻译文档/">Kotlin官方翻译文档</a></li></ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/Kotlin/">Kotlin</a>
+	</div>
+
+
+      
+      <div class="clearfix"></div>
+    </div>
+      
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+  
+    <article id="post-Kotlin之UI篇" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/12/22/Kotlin之UI篇/" class="article-date">
+  	<time datetime="2017-12-21T21:01:50.000Z" itemprop="datePublished">2017-12-21</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/12/22/Kotlin之UI篇/">
+        Kotlin之UI篇
+        
+      </a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="1-Android项目集成Kotlin"><a href="#1-Android项目集成Kotlin" class="headerlink" title="1.Android项目集成Kotlin"></a>1.Android项目集成Kotlin</h2><blockquote>
+<p>当我们的IDE安装好Kotlin插件（“Kotlin”）以后，项目想集成Kotlin将是一件非常轻松的事情，我们只需要在菜单栏中选择“Tools”-&gt;”Kotlin”-&gt;”Configure Kotin in Project”即可。</p>
+</blockquote>
+<p>##2. Kotlin-android-extensions插件减少模板代码</p>
+<blockquote>
+<p>用java进行Android界面开发时，最多的模板代码findviewbyid()，于是我们项目中引入了ButterKnife进行编译时注解。到了Kotlin的时候，我们需要写的代码量就更少了，我们这样做：</p>
+</blockquote>
+<p>在app/build.gradle中加入kotlin-android-extensions插件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apply plugin: &apos;kotlin-android-extensions&apos;</span><br></pre></td></tr></table></figure></p>
+<p>于是我们就可以这样开发：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span><br><span class="line">&lt;RelativeLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;</span><br><span class="line">    android:layout_width=&quot;match_parent&quot;</span><br><span class="line">    android:layout_height=&quot;match_parent&quot;&gt;</span><br><span class="line">    &lt;Button</span><br><span class="line">        android:id=&quot;@+id/btn_center&quot;   //我才是重点</span><br><span class="line">        android:layout_width=&quot;wrap_content&quot;</span><br><span class="line">        android:layout_height=&quot;wrap_content&quot;</span><br><span class="line">        android:layout_centerInParent=&quot;true&quot; /&gt;</span><br><span class="line">&lt;/RelativeLayout&gt;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">class VideoActivity : AppCompatActivity() &#123;</span><br><span class="line"></span><br><span class="line">    override fun onCreate(savedInstanceState: Bundle?) &#123;</span><br><span class="line">        super.onCreate(savedInstanceState)</span><br><span class="line">        setContentView(R.layout.activity_video)</span><br><span class="line">       btn_center.setOnClickListener&#123;   // 我才是重点</span><br><span class="line">            toast(&quot;be Clicked!&quot;)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol>
+<li>我们不用再写findviewbyid了！！！</li>
+<li>不用像butterknife那样<br>@bindview（R.id.btn_center）<br>Button centerBtn</li>
+</ol>
+<p>对于控件我们只需要根据xml定义的ID直接使用！</p>
+<h2 id="3-通过Anko加快界面渲染效率"><a href="#3-通过Anko加快界面渲染效率" class="headerlink" title="3.通过Anko加快界面渲染效率"></a>3.通过Anko加快界面渲染效率</h2><h3 id="3-1-Anko的github地址"><a href="#3-1-Anko的github地址" class="headerlink" title="3.1 Anko的github地址"></a>3.1 <a href="https://github.com/Kotlin/anko" target="_blank" rel="noopener">Anko的github地址</a></h3><p>###3.2 AnKo的集成</p>
+<p>###3.3 布局文件的两种方式的编写（添加AnKo  layout的依赖库）</p>
+<blockquote>
+<p>java中我们可以使用xml进行代码的编写，直观简洁，但是效率不高，因为系统会进行xml解析生成对应的控件。当然，我们也可以直接用代码进行编写，效率是提高了，但阅读行和复杂性提高了。而Anko采用了一种这种的办法，定义DSL语法，用代码编写“xml”。</p>
+</blockquote>
+<p>模式一：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">class WebActivity : AppCompatActivity() &#123;</span><br><span class="line"></span><br><span class="line">    private lateinit var webview: WebView</span><br><span class="line"></span><br><span class="line">    override fun onCreate(savedInstanceState: Bundle?) &#123;</span><br><span class="line">        super.onCreate(savedInstanceState)</span><br><span class="line">        verticalLayout &#123;                                       // 重点在这里</span><br><span class="line">            button(&quot;open Link&quot;) &#123;</span><br><span class="line">                setOnClickListener &#123;</span><br><span class="line">                    getPagebyUrl(&quot;http://www.baidu.com&quot;)</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            webview = webView().lparams(matchParent, matchParent)   //同时将创建的控件全局化</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">                                                                  </span><br><span class="line">    fun getPagebyUrl(url: String) &#123;            // 此处后面会重点讲解优化</span><br><span class="line">        Thread &#123;</span><br><span class="line">            val Page = URL(url).readText()</span><br><span class="line">            runOnUiThread &#123;</span><br><span class="line">                webview.loadData(Page, &quot;text/html&quot;, &quot;utf-8&quot;)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;.start()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>擦！！这么简洁的布局写在这个类里面还好，但是实际项目开发中，布局就可能比较复杂了，一个xml动不动就上百来行，全写着这个里面，类不就很臃肿了么？ </p>
+<p>小伙子（小妹妹）如果有这想法，证明思维还是蛮成熟，AnKo也考虑到这一点，支持Activity与layout分离，我们可以这样：</p>
+<p>模式二：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">class MainActivityUI : AnkoComponent&lt;MainActivity&gt; &#123;</span><br><span class="line"></span><br><span class="line">    companion object &#123;                    // 这里定义了控件的ID，方面在Activity中根据ID找控件</span><br><span class="line">        val req_btn = 1</span><br><span class="line">        val showview = 2</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    override fun createView(ui: AnkoContext&lt;MainActivity&gt;) = with(ui) &#123;</span><br><span class="line">        verticalLayout &#123;</span><br><span class="line">            button(&quot;请求数据&quot;) &#123;</span><br><span class="line">                id = req_btn</span><br><span class="line">            &#125;.lparams(width = matchParent, height = wrapContent)</span><br><span class="line">            textView &#123;</span><br><span class="line">                id = showview</span><br><span class="line">            &#125;.lparams(matchParent, matchParent)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>集成AnkoComponent 接口，在createView（）方法中编写DSL语法，创建布局。</p>
+<p>接下来我们看看Activity怎么写的？<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">class MainActivity : AppCompatActivity() &#123;</span><br><span class="line"></span><br><span class="line">    private lateinit var contentView: TextView</span><br><span class="line"></span><br><span class="line">    override fun onCreate(savedInstanceState: Bundle?) &#123;</span><br><span class="line">        super.onCreate(savedInstanceState)</span><br><span class="line"></span><br><span class="line">        MainActivityUI().setContentView(this)             //将上面的布局设置给该Activity</span><br><span class="line"></span><br><span class="line">        val reqBtn = find&lt;Button&gt;(MainActivityUI.req_btn)        // 根据ID寻找控件</span><br><span class="line">        contentView = find&lt;TextView&gt;(MainActivityUI.showview)</span><br><span class="line"></span><br><span class="line">        reqBtn.setOnClickListener &#123;</span><br><span class="line">            getPagebyUrl（“http://www.baidu.com”）</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">       fun getPagebyUrl(url: String) &#123;            // 此处后面会重点讲解优化</span><br><span class="line">        Thread &#123;</span><br><span class="line">            val Page = URL(url).readText()</span><br><span class="line">            runOnUiThread &#123;</span><br><span class="line">                contentView.text = Page</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;.start()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>###3.4 anko layout中添加自定义控件</p>
+<blockquote>
+<p>上面的 MainActivityUI 中添加的都是系统自带的控件，实际开发过程中，单纯使用系统组件是远远不够的，于是我们开始了自定义控件。那么问题来了，自定义的控件如何添加到DSL的layout中，直接使用显然是不能够的！ 不用担心，我们先看一下anko是如何让button支持DSL语法的（老规矩，点击刚刚编写的button查看源码）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">inline fun ViewManager.button(text: CharSequence?): android.widget.Button &#123;</span><br><span class="line">    return ankoView(`$$Anko$Factories$Sdk25View`.BUTTON, theme = 0) &#123;</span><br><span class="line">        setText(text)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<p>OMG，原来只是在ViewManager中添加一个拓展方法，通过ViewManager.ankoView()生成View对象，并初始化值（知道真相的我们，眼泪掉下来！） ， 嘿嘿！接下来我们也效仿的来一套！</p>
+<ul>
+<li><ol>
+<li>编写自定义控件，CircleView</li>
+</ol>
+</li>
+<li><ol>
+<li>创建一个View.kt文件</li>
+</ol>
+</li>
+<li><ol>
+<li>添加如下代码<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">inline fun ViewManager.circleView(init: com.yl.testcenter.CircleView.() -&gt; Unit) = ankoView(&#123; CircleView(it) &#125;, theme = 0) &#123; init() &#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+</li>
+</ul>
+<p>ps:  其中ViewManager.circleView这个扩展方法名是在layout中控件使用的名称</p>
+<ul>
+<li><ol>
+<li>控件的装逼使用<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">verticalLayout &#123;</span><br><span class="line">            id = container</span><br><span class="line">            button(&quot;请求数据&quot;) &#123;</span><br><span class="line">                id = req_btn</span><br><span class="line">            &#125;.lparams(width = matchParent, height = wrapContent)</span><br><span class="line">            textView &#123;</span><br><span class="line">                id = showview</span><br><span class="line">            &#125;.lparams(matchParent, wrapContent)</span><br><span class="line">            circleView &#123;                                 //  ----  我在这！！ </span><br><span class="line">                backgroundColor = Color.RED</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+</li>
+</ul>
+<p>###3.5 异步数据请求，更新UI（添加Kotlin coroutines依赖库）<br>上面异步请求网络数据的方式：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">fun getPagebyUrl(url: String) &#123;         </span><br><span class="line">        Thread &#123;</span><br><span class="line">            val Page = URL(url).readText()</span><br><span class="line">            runOnUiThread &#123;</span><br><span class="line">                contentView.text = Page</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;.start()</span><br></pre></td></tr></table></figure></p>
+<p>上面通过异步线程切换UI线程更新控件，显然代码变现上很直接了，但如果用协程就更加明了：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">fun getInfo() &#123;</span><br><span class="line">          </span><br><span class="line">           var job = async(CommonPool,start = CoroutineStart.LAZY) &#123;     //协程任务一</span><br><span class="line">               getVideoInfo()  </span><br><span class="line">           &#125;</span><br><span class="line">           launch(UI)&#123;                                                   //协程任务二</span><br><span class="line">               contentView.text = job.await()</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br></pre></td></tr></table></figure></p>
+<p>说明：</p>
+<ol>
+<li>创建一个后台协程任务，不开启（start = CoroutineStart.LAZY声明此协程不自定开启，需要手动调用await才启动）</li>
+<li>创建一个UI协程任务，默认为开启（没有设置start=xxx）</li>
+<li>UI协程更新控件，根据后台协程的返回值，协程不会阻塞UI线程。</li>
+</ol>
+<p>与上面相比没有线程切换的嵌套！</p>
+<p><a href="http://www.kotlindoc.cn/GettingStarted/Basic-Syntax.html" target="_blank" rel="noopener">1. Kotlin学习入门文档</a><br><a href="http://www.jianshu.com/p/9f720b9ccdea" target="_blank" rel="noopener">2. 协程相关知识</a><br><a href="http://www.jianshu.com/p/602acf58c725" target="_blank" rel="noopener">3. 深入了解协程与channel的关系</a><br><a href="http://blog.csdn.net/cenzr/article/details/72674849" target="_blank" rel="noopener">4. 相关框架与事例</a></p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Kotlin开发UI/">Kotlin开发UI</a></li></ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/Kotlin/">Kotlin</a>
+	</div>
+
+
+      
+      <div class="clearfix"></div>
+    </div>
+      
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
   
     <article id="post-Android•Lottie动画库填坑记" class="article article-type-post" itemscope itemprop="blogPost">
   
@@ -1042,206 +1588,17 @@
 
 
   
-    <article id="post-Gson-源码分析" class="article article-type-post" itemscope itemprop="blogPost">
   
-    <div class="article-meta">
-      <a href="/2017/12/16/Gson-源码分析/" class="article-date">
-  	<time datetime="2017-12-16T15:49:10.000Z" itemprop="datePublished">2017-12-16</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/12/16/Gson-源码分析/">
-        Gson 源码分析
-        
-      </a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="1-闯入背景"><a href="#1-闯入背景" class="headerlink" title="1. 闯入背景:"></a>1. 闯入背景:</h2><blockquote>
-<p>公司项目中使用Gson框架对服务器传过来的Json数据进行解析，而服务器后台数据很大程度上是通过运营后台人员配置。由于各种原因运营可能将某一字段类型配置错误，比如集合类型配置成字符串类型。虽然业务层会进行异常的捕获，但是仅因为一个字段的错误，导致整个Json数据失效，因小失大，甚至可能会造成重大损失，比如直播间礼物墙，因为一个礼物的某一个字段的错误，导致整个礼物墙展示为空，在线上环境这个算是重大事故了。于是，一个对基本类型容错的Gson改造库的需求油然而生，对于错误的数据以默认值填充。</p>
-<p>干货地址：<a href="https://github.com/1004145468/IKGson" target="_blank" rel="noopener">类型容错的Gson</a> </p>
-</blockquote>
-<h2 id="2-Gson官方库地址："><a href="#2-Gson官方库地址：" class="headerlink" title="2. Gson官方库地址："></a>2. Gson官方库地址：</h2><blockquote>
-<p><a href="https://github.com/1004145468/IKGson" target="_blank" rel="noopener">Github地址</a></p>
-</blockquote>
-<h2 id="3-前提说明"><a href="#3-前提说明" class="headerlink" title="3. 前提说明"></a>3. 前提说明</h2><blockquote>
-<p>a. 当前分析的Gson版本号为2.8.1。<br>b. Gson的处理过程主要分为两个流向，一个是序列化，将javabean对象转化为json字符串；另一个是反序列化，将json字符串映射成javabean对象。<br>c. 这两个流向处理前都有一个共同的操作，从传入的java实例对象或者字节码对象中获取 TypeAdapter，对于序列化就通过Jsonwriter进行写，对于反序列化就通过JsonReader进行读，所以此篇只分析Gson读的过程，写处理操作流程一样。</p>
-</blockquote>
-<h2 id="4-Gson-关键列的梳理"><a href="#4-Gson-关键列的梳理" class="headerlink" title="4. Gson 关键列的梳理"></a>4. Gson 关键列的梳理</h2><ul>
-<li>Gson 开发者直接使用的类，只对输入和输出负责。</li>
-<li>TypeToken 封装“操作类”（Gson.fromJson(json,People.class、Gson.toJson(new People)) 两处的People都是操作类）的类型。</li>
-<li>TypeAdapter 直接操作序列化与反序列化的过程，所以该抽象类中存在read()和write方法。</li>
-<li>TypeAdapterFactory 用于生产TypeAdapter的工厂类。</li>
-<li>GsonReader和GsonWriter是Gson处理内容的包装流，核心的操作有：<ul>
-<li>peek（） 流中下一个需要处理的内容</li>
-<li>nextName（） 读取json的key</li>
-<li>nextString（） 读取一个String类型的value</li>
-<li>nextInt（） 读取一个String类型的value</li>
-<li>nextBoolean（） 读取一个Boolean类型的value</li>
-<li>…</li>
-</ul>
-</li>
-</ul>
-<h3 id="5-源码分析。"><a href="#5-源码分析。" class="headerlink" title="5. 源码分析。"></a>5. 源码分析。</h3><blockquote>
-<p>从Gson.from(json, People.class) 突入</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">fromJson(json,Peolple.class)的调用链</span><br><span class="line"></span><br><span class="line">public &lt;T&gt; T fromJson(String json, Class&lt;T&gt; classOfT) throws JsonSyntaxException &#123;</span><br><span class="line">  Object object = fromJson(json, (Type) classOfT);</span><br><span class="line">  return Primitives.wrap(classOfT).cast(object);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public &lt;T&gt; T fromJson(String json, Type typeOfT) throws JsonSyntaxException &#123;</span><br><span class="line">  if (json == null) &#123;</span><br><span class="line">    return null;</span><br><span class="line">  &#125;</span><br><span class="line">  StringReader reader = new StringReader(json);</span><br><span class="line">  T target = (T) fromJson(reader, typeOfT);</span><br><span class="line">  return target;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public &lt;T&gt; T fromJson(Reader json, Type typeOfT) throws JsonIOException, JsonSyntaxException &#123;</span><br><span class="line">  JsonReader jsonReader = newJsonReader(json);</span><br><span class="line">  T object = (T) fromJson(jsonReader, typeOfT);</span><br><span class="line">  assertFullConsumption(object, jsonReader);</span><br><span class="line">  return object;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public &lt;T&gt; T fromJson(JsonReader reader, Type typeOfT) throws JsonIOException, JsonSyntaxException &#123;</span><br><span class="line">  boolean isEmpty = true;</span><br><span class="line">  boolean oldLenient = reader.isLenient();</span><br><span class="line">  reader.setLenient(true);</span><br><span class="line">  try &#123;</span><br><span class="line">    reader.peek();</span><br><span class="line">    isEmpty = false;</span><br><span class="line">    TypeToken&lt;T&gt; typeToken = (TypeToken&lt;T&gt;) TypeToken.get(typeOfT);</span><br><span class="line">    TypeAdapter&lt;T&gt; typeAdapter = getAdapter(typeToken);</span><br><span class="line">    T object = typeAdapter.read(reader);</span><br><span class="line">    return object;</span><br><span class="line">  &#125; ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>上面是从fromJson(String json, Class<t> classOfT)切入，亦或者是从fromJson(JsonElement json, Class<t> classOfT)也好，最终都是由 fromJson(JsonReader reader, Type typeOfT)处理。   </t></t></p>
-</blockquote>
-<h4 id="整个Json的解析过程分三步过程："><a href="#整个Json的解析过程分三步过程：" class="headerlink" title="整个Json的解析过程分三步过程："></a>整个Json的解析过程分三步过程：</h4><ul>
-<li>TypeToken对象的获取</li>
-<li>根据TypeToken获取TypeAdapter对象</li>
-<li>由TypeAdapter对象解析json字符串</li>
-</ul>
-<h4 id="根据以上的三步，我们逐一突破"><a href="#根据以上的三步，我们逐一突破" class="headerlink" title="根据以上的三步，我们逐一突破"></a>根据以上的三步，我们逐一突破</h4><hr>
-<h3 id="我们先从简单的入手，请记住我们的例子："><a href="#我们先从简单的入手，请记住我们的例子：" class="headerlink" title="我们先从简单的入手，请记住我们的例子："></a>我们先从简单的入手，请记住我们的例子：</h3><blockquote>
-<p> gson.fromJson(“hello gson”,String.class)</p>
-</blockquote>
-<h3 id="1-TypeToken的获取"><a href="#1-TypeToken的获取" class="headerlink" title="1. TypeToken的获取"></a>1. TypeToken的获取</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">public static TypeToken&lt;?&gt; get(Type type) &#123;</span><br><span class="line">   return new TypeToken&lt;Object&gt;(type);</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>没什么好瞅的~ 看new吧！</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">TypeToken(Type type) &#123;</span><br><span class="line">   this.type = $Gson$Types.canonicalize($Gson$Preconditions.checkNotNull(type));</span><br><span class="line">   this.rawType = (Class&lt;? super T&gt;) $Gson$Types.getRawType(this.type);</span><br><span class="line">   this.hashCode = this.type.hashCode();</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>采用契约式对传入的type判空处理，然后获取type的（type、rawType和hashcode），分别看看type和rawtype的获取流程</p>
-</blockquote>
-<h5 id="1-type的获取（type的华丽包装）"><a href="#1-type的获取（type的华丽包装）" class="headerlink" title="1. type的获取（type的华丽包装）"></a>1. type的获取（type的华丽包装）</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">public static Type canonicalize(Type type) &#123;</span><br><span class="line">    if (type instanceof Class) &#123;</span><br><span class="line">      Class&lt;?&gt; c = (Class&lt;?&gt;) type;</span><br><span class="line">      return c.isArray() ? new GenericArrayTypeImpl(canonicalize(c.getComponentType())) : c;</span><br><span class="line"></span><br><span class="line">    &#125; else if (type instanceof ParameterizedType) &#123;</span><br><span class="line">      ParameterizedType p = (ParameterizedType) type;</span><br><span class="line">      return new ParameterizedTypeImpl(p.getOwnerType(),</span><br><span class="line">          p.getRawType(), p.getActualTypeArguments());</span><br><span class="line"></span><br><span class="line">    &#125; else if (type instanceof GenericArrayType) &#123;</span><br><span class="line">      GenericArrayType g = (GenericArrayType) type;</span><br><span class="line">      return new GenericArrayTypeImpl(g.getGenericComponentType());</span><br><span class="line"></span><br><span class="line">    &#125; else if (type instanceof WildcardType) &#123;</span><br><span class="line">      WildcardType w = (WildcardType) type;</span><br><span class="line">      return new WildcardTypeImpl(w.getUpperBounds(), w.getLowerBounds());</span><br><span class="line"></span><br><span class="line">    &#125; else &#123;</span><br><span class="line">      // type is either serializable as-is or unsupported</span><br><span class="line">      return type;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>进入条件的筛选，第一个if还是好理解，后面的是什么鬼？ 不用着急，待我给施主梳理，之前Gson.from(json, People.class)的调用链中有一个fromJson(Reader json, Type typeOfT)<br>，用户使用时的切入点如果是它就可能是筛选情况的其他条件，此返回的type相对于对传入的java类型进行的类型的重新包装。</p>
-</blockquote>
-<h5 id="2-rawType的获取（type的简单粗暴说明）"><a href="#2-rawType的获取（type的简单粗暴说明）" class="headerlink" title="2. rawType的获取（type的简单粗暴说明）"></a>2. rawType的获取（type的简单粗暴说明）</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">public static Class&lt;?&gt; getRawType(Type type) &#123;</span><br><span class="line">    if (type instanceof Class&lt;?&gt;) &#123;</span><br><span class="line">      // type is a normal class.</span><br><span class="line">      return (Class&lt;?&gt;) type;</span><br><span class="line"></span><br><span class="line">    &#125; else if (type instanceof ParameterizedType) &#123;</span><br><span class="line">      ParameterizedType parameterizedType = (ParameterizedType) type;</span><br><span class="line"></span><br><span class="line">      // I&apos;m not exactly sure why getRawType() returns Type instead of Class.</span><br><span class="line">      // Neal isn&apos;t either but suspects some pathological case related</span><br><span class="line">      // to nested classes exists.</span><br><span class="line">      Type rawType = parameterizedType.getRawType();</span><br><span class="line">      checkArgument(rawType instanceof Class);</span><br><span class="line">      return (Class&lt;?&gt;) rawType;</span><br><span class="line"></span><br><span class="line">    &#125; else if (type instanceof GenericArrayType) &#123;</span><br><span class="line">      Type componentType = ((GenericArrayType)type).getGenericComponentType();</span><br><span class="line">      return Array.newInstance(getRawType(componentType), 0).getClass();</span><br><span class="line"></span><br><span class="line">    &#125; else if (type instanceof TypeVariable) &#123;</span><br><span class="line">      // we could use the variable&apos;s bounds, but that won&apos;t work if there are multiple.</span><br><span class="line">      // having a raw type that&apos;s more general than necessary is okay</span><br><span class="line">      return Object.class;</span><br><span class="line"></span><br><span class="line">    &#125; else if (type instanceof WildcardType) &#123;</span><br><span class="line">      return getRawType(((WildcardType) type).getUpperBounds()[0]);</span><br><span class="line"></span><br><span class="line">    &#125; else &#123;</span><br><span class="line">      String className = type == null ? &quot;null&quot; : type.getClass().getName();</span><br><span class="line">      throw new IllegalArgumentException(&quot;Expected a Class, ParameterizedType, or &quot;</span><br><span class="line">          + &quot;GenericArrayType, but &lt;&quot; + type + &quot;&gt; is of type &quot; + className);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>两处对比的看，其实type和rawtype很相似，type通过类来包装说明，而rawtype脱去华丽的衣服。type为GenericArrayType的，把衣服一脱，赤身裸体的一看，擦，原来是个array数组，这就是rawtype。</p>
-</blockquote>
-<h3 id="2-TypeAdapter的获取。"><a href="#2-TypeAdapter的获取。" class="headerlink" title="2. TypeAdapter的获取。"></a>2. TypeAdapter的获取。</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">public &lt;T&gt; TypeAdapter&lt;T&gt; getAdapter(TypeToken&lt;T&gt; type) &#123;</span><br><span class="line">    TypeAdapter&lt;?&gt; cached = typeTokenCache.get(type == null ? NULL_KEY_SURROGATE : type);</span><br><span class="line">    if (cached != null) &#123;</span><br><span class="line">      return (TypeAdapter&lt;T&gt;) cached;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    Map&lt;TypeToken&lt;?&gt;, FutureTypeAdapter&lt;?&gt;&gt; threadCalls = calls.get();</span><br><span class="line">    boolean requiresThreadLocalCleanup = false;</span><br><span class="line">    if (threadCalls == null) &#123;</span><br><span class="line">      threadCalls = new HashMap&lt;TypeToken&lt;?&gt;, FutureTypeAdapter&lt;?&gt;&gt;();</span><br><span class="line">      calls.set(threadCalls);</span><br><span class="line">      requiresThreadLocalCleanup = true;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    // the key and value type parameters always agree</span><br><span class="line">    FutureTypeAdapter&lt;T&gt; ongoingCall = (FutureTypeAdapter&lt;T&gt;) threadCalls.get(type);</span><br><span class="line">    if (ongoingCall != null) &#123;</span><br><span class="line">      return ongoingCall;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    try &#123;</span><br><span class="line">      FutureTypeAdapter&lt;T&gt; call = new FutureTypeAdapter&lt;T&gt;();</span><br><span class="line">      threadCalls.put(type, call);</span><br><span class="line"></span><br><span class="line">      for (TypeAdapterFactory factory : factories) &#123;</span><br><span class="line">        TypeAdapter&lt;T&gt; candidate = factory.create(this, type);</span><br><span class="line">        if (candidate != null) &#123;</span><br><span class="line">          call.setDelegate(candidate);</span><br><span class="line">          typeTokenCache.put(type, candidate);</span><br><span class="line">          return candidate;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      throw new IllegalArgumentException(&quot;GSON cannot handle &quot; + type);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>如果缓存中没有该Type对应TypeAdapter，就创建TypeAdapter。前面提过TypeAdapter是由TypeAdapterFactory创建的，所以有代码：</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">for (TypeAdapterFactory factory : factories) &#123;</span><br><span class="line">       TypeAdapter&lt;T&gt; candidate = factory.create(this, type);</span><br><span class="line">       if (candidate != null) &#123;</span><br><span class="line">         call.setDelegate(candidate);</span><br><span class="line">         typeTokenCache.put(type, candidate);</span><br><span class="line">         return candidate;</span><br><span class="line">       &#125;</span><br><span class="line">     &#125;</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>遍历所有的TypeAdapterFactory,如果该工厂能创建该Type的TypeAdapter就返回该TypeAdapter对象。</p>
-</blockquote>
-<p>那么重点来了，factories这么多的TypeAdapterFactory是怎么来了的？</p>
-<blockquote>
-<p>在我们new Gson的时候，就往factories中塞入了不同类型的TypeAdapterFactory，包括StringTypeAdapterFactory等等，代码如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">public Gson(xxx)</span><br><span class="line">&#123;</span><br><span class="line">    ...</span><br><span class="line">    factories.add(TypeAdapters.STRING_FACTORY);</span><br><span class="line">    factories.add(TypeAdapters.STRING_FACTORY);</span><br><span class="line">    factories.add(TypeAdapters.INTEGER_FACTORY);</span><br><span class="line">    factories.add(TypeAdapters.BOOLEAN_FACTORY);</span><br><span class="line">    factories.add(TypeAdapters.BYTE_FACTORY);</span><br><span class="line">    factories.add(TypeAdapters.SHORT_FACTORY);</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-</blockquote>
-<p>在遍历factories过程中通过create（this,type）方法来生成TypeAdapter。</p>
-<h5 id="我们就以第一个STRING-FACTORY为例先进行说明。"><a href="#我们就以第一个STRING-FACTORY为例先进行说明。" class="headerlink" title="我们就以第一个STRING_FACTORY为例先进行说明。"></a>我们就以第一个STRING_FACTORY为例先进行说明。</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">public static final TypeAdapterFactory STRING_FACTORY = newFactory(String.class, STRING);</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>接着往下看</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">public static &lt;TT&gt; TypeAdapterFactory newFactory(</span><br><span class="line">    final Class&lt;TT&gt; type, final TypeAdapter&lt;TT&gt; typeAdapter) &#123;</span><br><span class="line">  return new TypeAdapterFactory() &#123;</span><br><span class="line">    @SuppressWarnings(&quot;unchecked&quot;) // we use a runtime check to make sure the &apos;T&apos;s equal</span><br><span class="line">    @Override public &lt;T&gt; TypeAdapter&lt;T&gt; create(Gson gson, TypeToken&lt;T&gt; typeToken) &#123;</span><br><span class="line">      return typeToken.getRawType() == type ? (TypeAdapter&lt;T&gt;) typeAdapter : null;</span><br><span class="line">    &#125;</span><br><span class="line">    @Override public String toString() &#123;</span><br><span class="line">      return &quot;Factory[type=&quot; + type.getName() + &quot;,adapter=&quot; + typeAdapter + &quot;]&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>STRING_FACTORY = newFactory(String.class, STRING)的时候，STRING就是处理String类型的TypeAdapter，STRING_FACTORY中的create方法就是判断需要处理的类型是不是String类型的，如果是就返回STRING，否则返回null，即该类型不用STRING来处理。</p>
-<h4 id="总的来说，在创建Gson的实例对象时，创建TypeAdapterFactory的集合。每种TypeAdapterFactory实例包含能处理的Type类型和Type类型的TypeAdapter，不能处理的Type类型返回的TypeAdapter为null，所以在遍历factories过程中有："><a href="#总的来说，在创建Gson的实例对象时，创建TypeAdapterFactory的集合。每种TypeAdapterFactory实例包含能处理的Type类型和Type类型的TypeAdapter，不能处理的Type类型返回的TypeAdapter为null，所以在遍历factories过程中有：" class="headerlink" title="总的来说，在创建Gson的实例对象时，创建TypeAdapterFactory的集合。每种TypeAdapterFactory实例包含能处理的Type类型和Type类型的TypeAdapter，不能处理的Type类型返回的TypeAdapter为null，所以在遍历factories过程中有："></a>总的来说，在创建Gson的实例对象时，创建TypeAdapterFactory的集合。每种TypeAdapterFactory实例包含能处理的Type类型和Type类型的TypeAdapter，不能处理的Type类型返回的TypeAdapter为null，所以在遍历factories过程中有：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">for (TypeAdapterFactory factory : factories) &#123;</span><br><span class="line">        TypeAdapter&lt;T&gt; candidate = factory.create(this, type);</span><br><span class="line">        if (candidate != null) &#123;</span><br><span class="line">            ...</span><br><span class="line">          return candidate;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br></pre></td></tr></table></figure>
-<h3 id="3-由TypeAdapter对象解析json字符串"><a href="#3-由TypeAdapter对象解析json字符串" class="headerlink" title="3. 由TypeAdapter对象解析json字符串"></a>3. 由TypeAdapter对象解析json字符串</h3><blockquote>
-<p>我们回到最初的代码：</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">    TypeToken&lt;T&gt; typeToken = (TypeToken&lt;T&gt;)TypeToken.get(typeOfT);</span><br><span class="line">TypeAdapter&lt;T&gt; typeAdapter = getAdapter(typeToken);</span><br><span class="line">T object = typeAdapter.read(reader);</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>STRING就是处理String类型的TypeAdapter，然后我们看它的read（）方法。</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">public static final TypeAdapter&lt;String&gt; STRING = new TypeAdapter&lt;String&gt;() &#123;</span><br><span class="line">    @Override</span><br><span class="line">    public String read(JsonReader in) throws IOException &#123;</span><br><span class="line">      JsonToken peek = in.peek();</span><br><span class="line">      if (peek == JsonToken.NULL) &#123;</span><br><span class="line">        in.nextNull();</span><br><span class="line">        return null;</span><br><span class="line">      &#125;</span><br><span class="line">      /* coerce booleans to strings for backwards compatibility */</span><br><span class="line">      if (peek == JsonToken.BOOLEAN) &#123;</span><br><span class="line">        return Boolean.toString(in.nextBoolean());</span><br><span class="line">      &#125;</span><br><span class="line">      return in.nextString();</span><br><span class="line">    &#125;</span><br><span class="line">   ...</span><br><span class="line">  &#125;;</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>到这里位置，我们就将gson.fromJson(“hello gson”,String.class)的String类型“hello gson”返回。</p>
-</blockquote>
-<hr>
-<h3 id="刚刚是只是牛刀小试，我们的主材料来了，看看有多丰盛…"><a href="#刚刚是只是牛刀小试，我们的主材料来了，看看有多丰盛…" class="headerlink" title="刚刚是只是牛刀小试，我们的主材料来了，看看有多丰盛…"></a>刚刚是只是牛刀小试，我们的主材料来了，看看有多丰盛…</h3><p>Gson.from(“{<br>  “name”: “zhangsan”,<br>  “age”: 15,<br>  “grade”: [<br>    95,<br>    98<br>  ]<br>}”, Student.class)</p>
-<blockquote>
-<p>我们重新走刚刚的流程，看看怎么处理的</p>
-</blockquote>
-<h4 id="Step-one-获取TypeToken"><a href="#Step-one-获取TypeToken" class="headerlink" title="Step one : 获取TypeToken"></a>Step one : 获取TypeToken</h4><blockquote>
-<p>这一步没有什么与众不同</p>
-</blockquote>
-<h4 id="Step-Two：-TypeAdapter的获取。"><a href="#Step-Two：-TypeAdapter的获取。" class="headerlink" title="Step Two： TypeAdapter的获取。"></a>Step Two： TypeAdapter的获取。</h4><blockquote>
-<p>factories中包含了很多基本类型的TypeAdapterFactory,同时也包含用户自定义的类型Factory,看源码：</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">    // type adapters for composite and user-defined types</span><br><span class="line">    </span><br><span class="line">factories.add(new CollectionTypeAdapterFactory(constructorConstructor));</span><br><span class="line">factories.add(new MapTypeAdapterFactory(constructorConstructor, complexMapKeySerialization));</span><br><span class="line">this.jsonAdapterFactory = new JsonAdapterAnnotationTypeAdapterFactory(constructorConstructor);</span><br><span class="line">factories.add(jsonAdapterFactory);</span><br><span class="line">factories.add(TypeAdapters.ENUM_FACTORY);</span><br><span class="line">factories.add(new ReflectiveTypeAdapterFactory(constructorConstructor, fieldNamingStrategy, excluder, jsonAdapterFactory));</span><br></pre></td></tr></table></figure>
-<p>此处我们能匹配上的是ReflectiveTypeAdapterFactory，然后我们看它的create（）方法，关键的地方到了！！！</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">@Override public &lt;T&gt; TypeAdapter&lt;T&gt; create(Gson gson, final TypeToken&lt;T&gt; type) &#123;</span><br><span class="line">  Class&lt;? super T&gt; raw = type.getRawType();</span><br><span class="line"></span><br><span class="line">  if (!Object.class.isAssignableFrom(raw)) &#123;</span><br><span class="line">    return null; // it&apos;s a primitive!</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  ObjectConstructor&lt;T&gt; constructor = constructorConstructor.get(type);</span><br><span class="line">  return new Adapter&lt;T&gt;(constructor, getBoundFields(gson, type, raw));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>a. constructorConstructor 获取Student类的构造器<br>b. getBoundFields()通过反射获取Student每一个字段的的TypeAdapter，并且包装到Map<string, boundfield="">中，后面会讲解getBoundFields（）的方法。</string,></p>
-</blockquote>
-<h3 id="Step-Three-通过TypeAdapter的read（）输出对象"><a href="#Step-Three-通过TypeAdapter的read（）输出对象" class="headerlink" title="Step Three 通过TypeAdapter的read（）输出对象"></a>Step Three 通过TypeAdapter的read（）输出对象</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">@Override public T read(JsonReader in) throws IOException &#123;</span><br><span class="line">      if (in.peek() == JsonToken.NULL) &#123;</span><br><span class="line">        in.nextNull();</span><br><span class="line">        return null;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      T instance = constructor.construct();</span><br><span class="line"></span><br><span class="line">      try &#123;</span><br><span class="line">        in.beginObject();</span><br><span class="line">        while (in.hasNext()) &#123;</span><br><span class="line">          String name = in.nextName();</span><br><span class="line">          BoundField field = boundFields.get(name);</span><br><span class="line">          if (field == null || !field.deserialized) &#123;</span><br><span class="line">            in.skipValue();</span><br><span class="line">          &#125; else &#123;</span><br><span class="line">            field.read(in, instance);</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125; catch (IllegalStateException e) &#123;</span><br><span class="line">        throw new JsonSyntaxException(e);</span><br><span class="line">      &#125; catch (IllegalAccessException e) &#123;</span><br><span class="line">        throw new AssertionError(e);</span><br><span class="line">      &#125;</span><br><span class="line">      in.endObject();</span><br><span class="line">      return instance;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>到了这一步就似乎海阔天空了，通过传入的构造器创建Student类的实例，在JsonReader进行处理，in.beginObject()相当于跳过“{”，in.endObject（）相当于跳过“}”，其中通过in.hasNext（）判断是否处理完成。<br>在in.nextName()读取json字符串中的key值，然后在boundFields根据key获取对应的BoundField ，最后调用BoundField.read(in，instance)去处理细节，即每个字段的映射，我们看一下内部的细节：</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">new ReflectiveTypeAdapterFactory.BoundField(name, serialize, deserialize) &#123;</span><br><span class="line">      ...</span><br><span class="line">      @Override void read(JsonReader reader, Object value)</span><br><span class="line">          throws IOException, IllegalAccessException &#123;</span><br><span class="line">        Object fieldValue = typeAdapter.read(reader);</span><br><span class="line">        if (fieldValue != null || !isPrimitive) &#123;</span><br><span class="line">          field.set(value, fieldValue);</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">     </span><br><span class="line">     ...</span><br><span class="line">    &#125;;</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>当Filed都处理完成后，instance实例的每一个需要处理的字段都赋值成功，最终将这个对象return出去。</p>
-</blockquote>
-<hr>
-<h2 id="细节说明："><a href="#细节说明：" class="headerlink" title="细节说明："></a>细节说明：</h2><h3 id="a-getBoundFields"><a href="#a-getBoundFields" class="headerlink" title="a.  getBoundFields()"></a>a.  getBoundFields()</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">private Map&lt;String, BoundField&gt; getBoundFields(Gson context, TypeToken&lt;?&gt; type, Class&lt;?&gt; raw) &#123;</span><br><span class="line">    Map&lt;String, BoundField&gt; result = new LinkedHashMap&lt;String, BoundField&gt;();</span><br><span class="line">    if (raw.isInterface()) &#123;</span><br><span class="line">      return result;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    Type declaredType = type.getType();</span><br><span class="line">    while (raw != Object.class) &#123;</span><br><span class="line">      Field[] fields = raw.getDeclaredFields();</span><br><span class="line">      for (Field field : fields) &#123;</span><br><span class="line">        boolean serialize = excludeField(field, true);</span><br><span class="line">        boolean deserialize = excludeField(field, false);</span><br><span class="line">        if (!serialize &amp;&amp; !deserialize) &#123;</span><br><span class="line">          continue;</span><br><span class="line">        &#125;</span><br><span class="line">        field.setAccessible(true);</span><br><span class="line">        Type fieldType = $Gson$Types.resolve(type.getType(), raw, field.getGenericType());</span><br><span class="line">        List&lt;String&gt; fieldNames = getFieldNames(field);</span><br><span class="line">        BoundField previous = null;</span><br><span class="line">        for (int i = 0, size = fieldNames.size(); i &lt; size; ++i) &#123;</span><br><span class="line">          String name = fieldNames.get(i);</span><br><span class="line">          if (i != 0) serialize = false; // only serialize the default name</span><br><span class="line">          BoundField boundField = createBoundField(context, field, name,</span><br><span class="line">              TypeToken.get(fieldType), serialize, deserialize);</span><br><span class="line">          BoundField replaced = result.put(name, boundField);</span><br><span class="line">          if (previous == null) previous = replaced;</span><br><span class="line">        &#125;</span><br><span class="line">        if (previous != null) &#123;</span><br><span class="line">          throw new IllegalArgumentException(declaredType</span><br><span class="line">              + &quot; declares multiple JSON fields named &quot; + previous.name);</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      type = TypeToken.get($Gson$Types.resolve(type.getType(), raw, raw.getGenericSuperclass()));</span><br><span class="line">      raw = type.getRawType();</span><br><span class="line">    &#125;</span><br><span class="line">    return result;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>遍历Student类的每一个字段，遍历过程中做了两件事情：</p>
-<ul>
-<li>a. 该字段能否被序列化和反序列化，如果都不行就没有必要处理该字段，主要通过注解和排除器（Excluder）进行判断。   </li>
-<li>b. 对字段进行BoundField的包装。</li>
-</ul>
-</blockquote>
-<h3 id="b-JsonReader-doPeek"><a href="#b-JsonReader-doPeek" class="headerlink" title="b. JsonReader.doPeek()"></a>b. JsonReader.doPeek()</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br></pre></td><td class="code"><pre><span class="line">int doPeek() throws IOException &#123;</span><br><span class="line">    int peekStack = stack[stackSize - 1];</span><br><span class="line">    if (peekStack == JsonScope.EMPTY_ARRAY) &#123;</span><br><span class="line">      stack[stackSize - 1] = JsonScope.NONEMPTY_ARRAY;</span><br><span class="line">    &#125; else if (peekStack == JsonScope.NONEMPTY_ARRAY) &#123;</span><br><span class="line">      // Look for a comma before the next element.</span><br><span class="line">      int c = nextNonWhitespace(true);</span><br><span class="line">      switch (c) &#123;</span><br><span class="line">      case &apos;]&apos;:</span><br><span class="line">        return peeked = PEEKED_END_ARRAY;</span><br><span class="line">      case &apos;;&apos;:</span><br><span class="line">        checkLenient(); // fall-through</span><br><span class="line">      case &apos;,&apos;:</span><br><span class="line">        break;</span><br><span class="line">      default:</span><br><span class="line">        throw syntaxError(&quot;Unterminated array&quot;);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125; else if (peekStack == JsonScope.EMPTY_OBJECT || peekStack == JsonScope.NONEMPTY_OBJECT) &#123;</span><br><span class="line">      stack[stackSize - 1] = JsonScope.DANGLING_NAME;</span><br><span class="line">      // Look for a comma before the next element.</span><br><span class="line">      if (peekStack == JsonScope.NONEMPTY_OBJECT) &#123;</span><br><span class="line">        int c = nextNonWhitespace(true);</span><br><span class="line">        switch (c) &#123;</span><br><span class="line">        case &apos;&#125;&apos;:</span><br><span class="line">          return peeked = PEEKED_END_OBJECT;</span><br><span class="line">        case &apos;;&apos;:</span><br><span class="line">          checkLenient(); // fall-through</span><br><span class="line">        case &apos;,&apos;:</span><br><span class="line">          break;</span><br><span class="line">        default:</span><br><span class="line">          throw syntaxError(&quot;Unterminated object&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      int c = nextNonWhitespace(true);</span><br><span class="line">      switch (c) &#123;</span><br><span class="line">      case &apos;&quot;&apos;:</span><br><span class="line">        return peeked = PEEKED_DOUBLE_QUOTED_NAME;</span><br><span class="line">      case &apos;\&apos;&apos;:</span><br><span class="line">        checkLenient();</span><br><span class="line">        return peeked = PEEKED_SINGLE_QUOTED_NAME;</span><br><span class="line">      case &apos;&#125;&apos;:</span><br><span class="line">        if (peekStack != JsonScope.NONEMPTY_OBJECT) &#123;</span><br><span class="line">          return peeked = PEEKED_END_OBJECT;</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">          throw syntaxError(&quot;Expected name&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">      default:</span><br><span class="line">        checkLenient();</span><br><span class="line">        pos--; // Don&apos;t consume the first character in an unquoted string.</span><br><span class="line">        if (isLiteral((char) c)) &#123;</span><br><span class="line">          return peeked = PEEKED_UNQUOTED_NAME;</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">          throw syntaxError(&quot;Expected name&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125; else if (peekStack == JsonScope.DANGLING_NAME) &#123;</span><br><span class="line">      stack[stackSize - 1] = JsonScope.NONEMPTY_OBJECT;</span><br><span class="line">      // Look for a colon before the value.</span><br><span class="line">      int c = nextNonWhitespace(true);</span><br><span class="line">      switch (c) &#123;</span><br><span class="line">      case &apos;:&apos;:</span><br><span class="line">        break;</span><br><span class="line">      case &apos;=&apos;:</span><br><span class="line">        checkLenient();</span><br><span class="line">        if ((pos &lt; limit || fillBuffer(1)) &amp;&amp; buffer[pos] == &apos;&gt;&apos;) &#123;</span><br><span class="line">          pos++;</span><br><span class="line">        &#125;</span><br><span class="line">        break;</span><br><span class="line">      default:</span><br><span class="line">        throw syntaxError(&quot;Expected &apos;:&apos;&quot;);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125; else if (peekStack == JsonScope.EMPTY_DOCUMENT) &#123;</span><br><span class="line">      if (lenient) &#123;</span><br><span class="line">        consumeNonExecutePrefix();</span><br><span class="line">      &#125;</span><br><span class="line">      stack[stackSize - 1] = JsonScope.NONEMPTY_DOCUMENT;</span><br><span class="line">    &#125; else if (peekStack == JsonScope.NONEMPTY_DOCUMENT) &#123;</span><br><span class="line">      int c = nextNonWhitespace(false);</span><br><span class="line">      if (c == -1) &#123;</span><br><span class="line">        return peeked = PEEKED_EOF;</span><br><span class="line">      &#125; else &#123;</span><br><span class="line">        checkLenient();</span><br><span class="line">        pos--;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125; else if (peekStack == JsonScope.CLOSED) &#123;</span><br><span class="line">      throw new IllegalStateException(&quot;JsonReader is closed&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    int c = nextNonWhitespace(true);</span><br><span class="line">    switch (c) &#123;</span><br><span class="line">    case &apos;]&apos;:</span><br><span class="line">      if (peekStack == JsonScope.EMPTY_ARRAY) &#123;</span><br><span class="line">        return peeked = PEEKED_END_ARRAY;</span><br><span class="line">      &#125;</span><br><span class="line">      // fall-through to handle &quot;,]&quot;</span><br><span class="line">    case &apos;;&apos;:</span><br><span class="line">    case &apos;,&apos;:</span><br><span class="line">      // In lenient mode, a 0-length literal in an array means &apos;null&apos;.</span><br><span class="line">      if (peekStack == JsonScope.EMPTY_ARRAY || peekStack == JsonScope.NONEMPTY_ARRAY) &#123;</span><br><span class="line">        checkLenient();</span><br><span class="line">        pos--;</span><br><span class="line">        return peeked = PEEKED_NULL;</span><br><span class="line">      &#125; else &#123;</span><br><span class="line">        throw syntaxError(&quot;Unexpected value&quot;);</span><br><span class="line">      &#125;</span><br><span class="line">    case &apos;\&apos;&apos;:</span><br><span class="line">      checkLenient();</span><br><span class="line">      return peeked = PEEKED_SINGLE_QUOTED;</span><br><span class="line">    case &apos;&quot;&apos;:</span><br><span class="line">      return peeked = PEEKED_DOUBLE_QUOTED;</span><br><span class="line">    case &apos;[&apos;:</span><br><span class="line">      return peeked = PEEKED_BEGIN_ARRAY;</span><br><span class="line">    case &apos;&#123;&apos;:</span><br><span class="line">      return peeked = PEEKED_BEGIN_OBJECT;</span><br><span class="line">    default:</span><br><span class="line">      pos--; // Don&apos;t consume the first character in a literal value.</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    int result = peekKeyword();</span><br><span class="line">    if (result != PEEKED_NONE) &#123;</span><br><span class="line">      return result;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    result = peekNumber();</span><br><span class="line">    if (result != PEEKED_NONE) &#123;</span><br><span class="line">      return result;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    if (!isLiteral(buffer[pos])) &#123;</span><br><span class="line">      throw syntaxError(&quot;Expected value&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    checkLenient();</span><br><span class="line">    return peeked = PEEKED_UNQUOTED;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p> 该操作逻辑处理较强，主要工作分为3点：</p>
-</blockquote>
-<ul>
-<li>json的格式校验，格式不合法抛出异常</li>
-<li>根据当前的操作，决定下一步的操作方式</li>
-<li>流中下一部分的内容类型</li>
-</ul>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android源码分析/">Android源码分析</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android进阶知识/">Android进阶知识</a></li></ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/Android/">Android</a>
-	</div>
-
-
-      
-      <div class="clearfix"></div>
-    </div>
-      
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-  
+    <nav id="page-nav">
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+    </nav>
   
 </div>
       <footer id="footer">
   <div class="outer">
     <div id="footer-info">
       <div class="footer-left">
-        &copy; 2017 Mr Yang
+        &copy; 2018 Mr Yang
       </div>
         <div class="footer-right">
           <a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/1004145468" target="_blank">Mr Yang</a>

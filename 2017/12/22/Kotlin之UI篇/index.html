@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Kotlin之UI篇 | Yang&#39;s Blog</title>
+
+  <!-- keywords -->
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="1.Android项目集成Kotlin 当我们的IDE安装好Kotlin插件（“Kotlin”）以后，项目想集成Kotlin将是一件非常轻松的事情，我们只需要在菜单栏中选择“Tools”-&amp;gt;”Kotlin”-&amp;gt;”Configure Kotin in Project”即可。  ##2. Kotlin-android-extensions插件减少模板代码  用java进行Android界面">
+<meta name="keywords" content="Kotlin开发UI">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Kotlin之UI篇">
+<meta property="og:url" content="https://1004145468.github.io/2017/12/22/Kotlin之UI篇/index.html">
+<meta property="og:site_name" content="Yang&#39;s Blog">
+<meta property="og:description" content="1.Android项目集成Kotlin 当我们的IDE安装好Kotlin插件（“Kotlin”）以后，项目想集成Kotlin将是一件非常轻松的事情，我们只需要在菜单栏中选择“Tools”-&amp;gt;”Kotlin”-&amp;gt;”Configure Kotin in Project”即可。  ##2. Kotlin-android-extensions插件减少模板代码  用java进行Android界面">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-01-11T09:17:05.218Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Kotlin之UI篇">
+<meta name="twitter:description" content="1.Android项目集成Kotlin 当我们的IDE安装好Kotlin插件（“Kotlin”）以后，项目想集成Kotlin将是一件非常轻松的事情，我们只需要在菜单栏中选择“Tools”-&amp;gt;”Kotlin”-&amp;gt;”Configure Kotin in Project”即可。  ##2. Kotlin-android-extensions插件减少模板代码  用java进行Android界面">
+  
+    <link rel="alternative" href="/atom.xml" title="Yang&#39;s Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1513413561480&di=b6c307347e043052915538ae362b32c9&imgtype=0&src=http%3A%2F%2Fpic30.photophoto.cn%2F20140119%2F0005018372822892_b.jpg">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+  
+
+  <script src="//cdn.bootcss.com/require.js/2.3.2/require.min.js"></script>
+  <script src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+
+  
+</head>
+<body>
+  <div id="container">
+    <div id="particles-js"></div>
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1513413561480&amp;di=b6c307347e043052915538ae362b32c9&amp;imgtype=0&amp;src=http%3A%2F%2Fpic30.photophoto.cn%2F20140119%2F0005018372822892_b.jpg" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">Mr Yang</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">被代码耽误的二逼青年</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						<li>友情链接</li>
+						
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">最新文章</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/1004145468" title="github">github</a>
+					        
+								<a class="mail" target="_blank" href="http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=1004145468@qq.com" title="mail">mail</a>
+					        
+								<a class="jianshu" target="_blank" href="http://www.jianshu.com/u/5fbebf77711c" title="jianshu">jianshu</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Android•Lottie/" style="font-size: 10px;">Android•Lottie</a> <a href="/tags/Android源码分析/" style="font-size: 20px;">Android源码分析</a> <a href="/tags/Android进阶知识/" style="font-size: 20px;">Android进阶知识</a> <a href="/tags/Intellij插件开发/" style="font-size: 10px;">Intellij插件开发</a> <a href="/tags/Kotlin与Java差异化/" style="font-size: 10px;">Kotlin与Java差异化</a> <a href="/tags/Kotlin官方翻译文档/" style="font-size: 10px;">Kotlin官方翻译文档</a> <a href="/tags/Kotlin开发UI/" style="font-size: 10px;">Kotlin开发UI</a> <a href="/tags/ListView与公聊/" style="font-size: 10px;">ListView与公聊</a> <a href="/tags/多线程处理/" style="font-size: 10px;">多线程处理</a> <a href="/tags/注解/" style="font-size: 10px;">注解</a>
+					</div>
+				</section>
+				
+				
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://www.jackywang.tech/">JackWang</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+			</div>
+		</div>
+	</header>				
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">Mr Yang</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				<img lazy-src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1513413561480&amp;di=b6c307347e043052915538ae362b32c9&amp;imgtype=0&amp;src=http%3A%2F%2Fpic30.photophoto.cn%2F20140119%2F0005018372822892_b.jpg" class="js-avatar">
+			</div>
+			<hgroup>
+			  <h1 class="header-author">Mr Yang</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">被代码耽误的二逼青年</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">最新文章</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/1004145468" title="github">github</a>
+			        
+						<a class="mail" target="_blank" href="http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=1004145468@qq.com" title="mail">mail</a>
+			        
+						<a class="jianshu" target="_blank" href="http://www.jianshu.com/u/5fbebf77711c" title="jianshu">jianshu</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+      <div class="body-wrap"><article id="post-Kotlin之UI篇" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/12/22/Kotlin之UI篇/" class="article-date">
+  	<time datetime="2017-12-21T21:01:50.000Z" itemprop="datePublished">2017-12-21</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Kotlin之UI篇
+      
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Kotlin开发UI/">Kotlin开发UI</a></li></ul>
+	</div>
+
+        
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/Kotlin/">Kotlin</a>
+	</div>
+
+
+        
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="1-Android项目集成Kotlin"><a href="#1-Android项目集成Kotlin" class="headerlink" title="1.Android项目集成Kotlin"></a>1.Android项目集成Kotlin</h2><blockquote>
+<p>当我们的IDE安装好Kotlin插件（“Kotlin”）以后，项目想集成Kotlin将是一件非常轻松的事情，我们只需要在菜单栏中选择“Tools”-&gt;”Kotlin”-&gt;”Configure Kotin in Project”即可。</p>
+</blockquote>
+<p>##2. Kotlin-android-extensions插件减少模板代码</p>
+<blockquote>
+<p>用java进行Android界面开发时，最多的模板代码findviewbyid()，于是我们项目中引入了ButterKnife进行编译时注解。到了Kotlin的时候，我们需要写的代码量就更少了，我们这样做：</p>
+</blockquote>
+<p>在app/build.gradle中加入kotlin-android-extensions插件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apply plugin: &apos;kotlin-android-extensions&apos;</span><br></pre></td></tr></table></figure></p>
+<p>于是我们就可以这样开发：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span><br><span class="line">&lt;RelativeLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;</span><br><span class="line">    android:layout_width=&quot;match_parent&quot;</span><br><span class="line">    android:layout_height=&quot;match_parent&quot;&gt;</span><br><span class="line">    &lt;Button</span><br><span class="line">        android:id=&quot;@+id/btn_center&quot;   //我才是重点</span><br><span class="line">        android:layout_width=&quot;wrap_content&quot;</span><br><span class="line">        android:layout_height=&quot;wrap_content&quot;</span><br><span class="line">        android:layout_centerInParent=&quot;true&quot; /&gt;</span><br><span class="line">&lt;/RelativeLayout&gt;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">class VideoActivity : AppCompatActivity() &#123;</span><br><span class="line"></span><br><span class="line">    override fun onCreate(savedInstanceState: Bundle?) &#123;</span><br><span class="line">        super.onCreate(savedInstanceState)</span><br><span class="line">        setContentView(R.layout.activity_video)</span><br><span class="line">       btn_center.setOnClickListener&#123;   // 我才是重点</span><br><span class="line">            toast(&quot;be Clicked!&quot;)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol>
+<li>我们不用再写findviewbyid了！！！</li>
+<li>不用像butterknife那样<br>@bindview（R.id.btn_center）<br>Button centerBtn</li>
+</ol>
+<p>对于控件我们只需要根据xml定义的ID直接使用！</p>
+<h2 id="3-通过Anko加快界面渲染效率"><a href="#3-通过Anko加快界面渲染效率" class="headerlink" title="3.通过Anko加快界面渲染效率"></a>3.通过Anko加快界面渲染效率</h2><h3 id="3-1-Anko的github地址"><a href="#3-1-Anko的github地址" class="headerlink" title="3.1 Anko的github地址"></a>3.1 <a href="https://github.com/Kotlin/anko" target="_blank" rel="noopener">Anko的github地址</a></h3><p>###3.2 AnKo的集成</p>
+<p>###3.3 布局文件的两种方式的编写（添加AnKo  layout的依赖库）</p>
+<blockquote>
+<p>java中我们可以使用xml进行代码的编写，直观简洁，但是效率不高，因为系统会进行xml解析生成对应的控件。当然，我们也可以直接用代码进行编写，效率是提高了，但阅读行和复杂性提高了。而Anko采用了一种这种的办法，定义DSL语法，用代码编写“xml”。</p>
+</blockquote>
+<p>模式一：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">class WebActivity : AppCompatActivity() &#123;</span><br><span class="line"></span><br><span class="line">    private lateinit var webview: WebView</span><br><span class="line"></span><br><span class="line">    override fun onCreate(savedInstanceState: Bundle?) &#123;</span><br><span class="line">        super.onCreate(savedInstanceState)</span><br><span class="line">        verticalLayout &#123;                                       // 重点在这里</span><br><span class="line">            button(&quot;open Link&quot;) &#123;</span><br><span class="line">                setOnClickListener &#123;</span><br><span class="line">                    getPagebyUrl(&quot;http://www.baidu.com&quot;)</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            webview = webView().lparams(matchParent, matchParent)   //同时将创建的控件全局化</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">                                                                  </span><br><span class="line">    fun getPagebyUrl(url: String) &#123;            // 此处后面会重点讲解优化</span><br><span class="line">        Thread &#123;</span><br><span class="line">            val Page = URL(url).readText()</span><br><span class="line">            runOnUiThread &#123;</span><br><span class="line">                webview.loadData(Page, &quot;text/html&quot;, &quot;utf-8&quot;)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;.start()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>擦！！这么简洁的布局写在这个类里面还好，但是实际项目开发中，布局就可能比较复杂了，一个xml动不动就上百来行，全写着这个里面，类不就很臃肿了么？ </p>
+<p>小伙子（小妹妹）如果有这想法，证明思维还是蛮成熟，AnKo也考虑到这一点，支持Activity与layout分离，我们可以这样：</p>
+<p>模式二：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">class MainActivityUI : AnkoComponent&lt;MainActivity&gt; &#123;</span><br><span class="line"></span><br><span class="line">    companion object &#123;                    // 这里定义了控件的ID，方面在Activity中根据ID找控件</span><br><span class="line">        val req_btn = 1</span><br><span class="line">        val showview = 2</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    override fun createView(ui: AnkoContext&lt;MainActivity&gt;) = with(ui) &#123;</span><br><span class="line">        verticalLayout &#123;</span><br><span class="line">            button(&quot;请求数据&quot;) &#123;</span><br><span class="line">                id = req_btn</span><br><span class="line">            &#125;.lparams(width = matchParent, height = wrapContent)</span><br><span class="line">            textView &#123;</span><br><span class="line">                id = showview</span><br><span class="line">            &#125;.lparams(matchParent, matchParent)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>集成AnkoComponent 接口，在createView（）方法中编写DSL语法，创建布局。</p>
+<p>接下来我们看看Activity怎么写的？<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">class MainActivity : AppCompatActivity() &#123;</span><br><span class="line"></span><br><span class="line">    private lateinit var contentView: TextView</span><br><span class="line"></span><br><span class="line">    override fun onCreate(savedInstanceState: Bundle?) &#123;</span><br><span class="line">        super.onCreate(savedInstanceState)</span><br><span class="line"></span><br><span class="line">        MainActivityUI().setContentView(this)             //将上面的布局设置给该Activity</span><br><span class="line"></span><br><span class="line">        val reqBtn = find&lt;Button&gt;(MainActivityUI.req_btn)        // 根据ID寻找控件</span><br><span class="line">        contentView = find&lt;TextView&gt;(MainActivityUI.showview)</span><br><span class="line"></span><br><span class="line">        reqBtn.setOnClickListener &#123;</span><br><span class="line">            getPagebyUrl（“http://www.baidu.com”）</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">       fun getPagebyUrl(url: String) &#123;            // 此处后面会重点讲解优化</span><br><span class="line">        Thread &#123;</span><br><span class="line">            val Page = URL(url).readText()</span><br><span class="line">            runOnUiThread &#123;</span><br><span class="line">                contentView.text = Page</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;.start()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>###3.4 anko layout中添加自定义控件</p>
+<blockquote>
+<p>上面的 MainActivityUI 中添加的都是系统自带的控件，实际开发过程中，单纯使用系统组件是远远不够的，于是我们开始了自定义控件。那么问题来了，自定义的控件如何添加到DSL的layout中，直接使用显然是不能够的！ 不用担心，我们先看一下anko是如何让button支持DSL语法的（老规矩，点击刚刚编写的button查看源码）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">inline fun ViewManager.button(text: CharSequence?): android.widget.Button &#123;</span><br><span class="line">    return ankoView(`$$Anko$Factories$Sdk25View`.BUTTON, theme = 0) &#123;</span><br><span class="line">        setText(text)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<p>OMG，原来只是在ViewManager中添加一个拓展方法，通过ViewManager.ankoView()生成View对象，并初始化值（知道真相的我们，眼泪掉下来！） ， 嘿嘿！接下来我们也效仿的来一套！</p>
+<ul>
+<li><ol>
+<li>编写自定义控件，CircleView</li>
+</ol>
+</li>
+<li><ol>
+<li>创建一个View.kt文件</li>
+</ol>
+</li>
+<li><ol>
+<li>添加如下代码<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">inline fun ViewManager.circleView(init: com.yl.testcenter.CircleView.() -&gt; Unit) = ankoView(&#123; CircleView(it) &#125;, theme = 0) &#123; init() &#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+</li>
+</ul>
+<p>ps:  其中ViewManager.circleView这个扩展方法名是在layout中控件使用的名称</p>
+<ul>
+<li><ol>
+<li>控件的装逼使用<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">verticalLayout &#123;</span><br><span class="line">            id = container</span><br><span class="line">            button(&quot;请求数据&quot;) &#123;</span><br><span class="line">                id = req_btn</span><br><span class="line">            &#125;.lparams(width = matchParent, height = wrapContent)</span><br><span class="line">            textView &#123;</span><br><span class="line">                id = showview</span><br><span class="line">            &#125;.lparams(matchParent, wrapContent)</span><br><span class="line">            circleView &#123;                                 //  ----  我在这！！ </span><br><span class="line">                backgroundColor = Color.RED</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+</li>
+</ul>
+<p>###3.5 异步数据请求，更新UI（添加Kotlin coroutines依赖库）<br>上面异步请求网络数据的方式：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">fun getPagebyUrl(url: String) &#123;         </span><br><span class="line">        Thread &#123;</span><br><span class="line">            val Page = URL(url).readText()</span><br><span class="line">            runOnUiThread &#123;</span><br><span class="line">                contentView.text = Page</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;.start()</span><br></pre></td></tr></table></figure></p>
+<p>上面通过异步线程切换UI线程更新控件，显然代码变现上很直接了，但如果用协程就更加明了：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">fun getInfo() &#123;</span><br><span class="line">          </span><br><span class="line">           var job = async(CommonPool,start = CoroutineStart.LAZY) &#123;     //协程任务一</span><br><span class="line">               getVideoInfo()  </span><br><span class="line">           &#125;</span><br><span class="line">           launch(UI)&#123;                                                   //协程任务二</span><br><span class="line">               contentView.text = job.await()</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br></pre></td></tr></table></figure></p>
+<p>说明：</p>
+<ol>
+<li>创建一个后台协程任务，不开启（start = CoroutineStart.LAZY声明此协程不自定开启，需要手动调用await才启动）</li>
+<li>创建一个UI协程任务，默认为开启（没有设置start=xxx）</li>
+<li>UI协程更新控件，根据后台协程的返回值，协程不会阻塞UI线程。</li>
+</ol>
+<p>与上面相比没有线程切换的嵌套！</p>
+<p><a href="http://www.kotlindoc.cn/GettingStarted/Basic-Syntax.html" target="_blank" rel="noopener">1. Kotlin学习入门文档</a><br><a href="http://www.jianshu.com/p/9f720b9ccdea" target="_blank" rel="noopener">2. 协程相关知识</a><br><a href="http://www.jianshu.com/p/602acf58c725" target="_blank" rel="noopener">3. 深入了解协程与channel的关系</a><br><a href="http://blog.csdn.net/cenzr/article/details/72674849" target="_blank" rel="noopener">4. 相关框架与事例</a></p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/12/23/Kotlin（android）协程中文翻译/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">&lt;</strong>
+      <div class="article-nav-title">
+        
+          Kotlin（android）协程中文翻译
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/12/17/Android•Lottie动画库填坑记/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Android•Lottie动画库填坑记</div>
+      <strong class="article-nav-caption">&gt;</strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="ds-share share" data-thread-key="Kotlin之UI篇" data-title="Kotlin之UI篇" data-url="https://1004145468.github.io/2017/12/22/Kotlin之UI篇/"  data-images="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1513413561480&amp;di=b6c307347e043052915538ae362b32c9&amp;imgtype=0&amp;src=http%3A%2F%2Fpic30.photophoto.cn%2F20140119%2F0005018372822892_b.jpg" data-content="Kotlin之UI篇">
+    <div class="ds-share-inline">
+      <ul  class="ds-share-icons-16">
+      <!--
+      	<li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+        <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+        <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+        <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+        <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+       -->
+      </ul>
+      <div class="ds-share-icons-more">
+      </div>
+    </div>
+ </div>
+ 
+
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+      <div class="footer-left">
+        &copy; 2018 Mr Yang
+      </div>
+        <div class="footer-right">
+          <a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/1004145468" target="_blank">Mr Yang</a>
+        </div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="/js/main.js"></script>
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js"></script>
+
+
+  </div>
+</body>
+</html>

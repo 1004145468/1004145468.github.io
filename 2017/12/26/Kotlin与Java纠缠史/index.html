@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Kotlin与Java纠缠史 | Yang&#39;s Blog</title>
+
+  <!-- keywords -->
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="1. 背景 Jetbrains早在2010年推出Kotlin,在今年(2017)5月18,谷歌在今日举行的I/O开发者大会上宣布，将Kotlin语言作为安卓开发的一级编程语言,这个可爱的语言可于Java进行无缝混编。之前做过一段时间的C#和python开发，感觉三者之间总两两相似，不清楚是谁在模仿谁，谁在吃着谁的语法糖。  2. 差异与对比2.1 构造器   java Kotlin     构造器">
+<meta name="keywords" content="Kotlin与Java差异化">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Kotlin与Java纠缠史">
+<meta property="og:url" content="https://1004145468.github.io/2017/12/26/Kotlin与Java纠缠史/index.html">
+<meta property="og:site_name" content="Yang&#39;s Blog">
+<meta property="og:description" content="1. 背景 Jetbrains早在2010年推出Kotlin,在今年(2017)5月18,谷歌在今日举行的I/O开发者大会上宣布，将Kotlin语言作为安卓开发的一级编程语言,这个可爱的语言可于Java进行无缝混编。之前做过一段时间的C#和python开发，感觉三者之间总两两相似，不清楚是谁在模仿谁，谁在吃着谁的语法糖。  2. 差异与对比2.1 构造器   java Kotlin     构造器">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-01-11T09:21:26.983Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Kotlin与Java纠缠史">
+<meta name="twitter:description" content="1. 背景 Jetbrains早在2010年推出Kotlin,在今年(2017)5月18,谷歌在今日举行的I/O开发者大会上宣布，将Kotlin语言作为安卓开发的一级编程语言,这个可爱的语言可于Java进行无缝混编。之前做过一段时间的C#和python开发，感觉三者之间总两两相似，不清楚是谁在模仿谁，谁在吃着谁的语法糖。  2. 差异与对比2.1 构造器   java Kotlin     构造器">
+  
+    <link rel="alternative" href="/atom.xml" title="Yang&#39;s Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1513413561480&di=b6c307347e043052915538ae362b32c9&imgtype=0&src=http%3A%2F%2Fpic30.photophoto.cn%2F20140119%2F0005018372822892_b.jpg">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+  
+
+  <script src="//cdn.bootcss.com/require.js/2.3.2/require.min.js"></script>
+  <script src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+
+  
+</head>
+<body>
+  <div id="container">
+    <div id="particles-js"></div>
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1513413561480&amp;di=b6c307347e043052915538ae362b32c9&amp;imgtype=0&amp;src=http%3A%2F%2Fpic30.photophoto.cn%2F20140119%2F0005018372822892_b.jpg" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">Mr Yang</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">被代码耽误的二逼青年</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						<li>友情链接</li>
+						
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">最新文章</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/1004145468" title="github">github</a>
+					        
+								<a class="mail" target="_blank" href="http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=1004145468@qq.com" title="mail">mail</a>
+					        
+								<a class="jianshu" target="_blank" href="http://www.jianshu.com/u/5fbebf77711c" title="jianshu">jianshu</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Android•Lottie/" style="font-size: 10px;">Android•Lottie</a> <a href="/tags/Android源码分析/" style="font-size: 20px;">Android源码分析</a> <a href="/tags/Android进阶知识/" style="font-size: 20px;">Android进阶知识</a> <a href="/tags/Intellij插件开发/" style="font-size: 10px;">Intellij插件开发</a> <a href="/tags/Kotlin与Java差异化/" style="font-size: 10px;">Kotlin与Java差异化</a> <a href="/tags/Kotlin官方翻译文档/" style="font-size: 10px;">Kotlin官方翻译文档</a> <a href="/tags/Kotlin开发UI/" style="font-size: 10px;">Kotlin开发UI</a> <a href="/tags/ListView与公聊/" style="font-size: 10px;">ListView与公聊</a> <a href="/tags/多线程处理/" style="font-size: 10px;">多线程处理</a> <a href="/tags/注解/" style="font-size: 10px;">注解</a>
+					</div>
+				</section>
+				
+				
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://www.jackywang.tech/">JackWang</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+			</div>
+		</div>
+	</header>				
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">Mr Yang</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				<img lazy-src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1513413561480&amp;di=b6c307347e043052915538ae362b32c9&amp;imgtype=0&amp;src=http%3A%2F%2Fpic30.photophoto.cn%2F20140119%2F0005018372822892_b.jpg" class="js-avatar">
+			</div>
+			<hgroup>
+			  <h1 class="header-author">Mr Yang</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">被代码耽误的二逼青年</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">最新文章</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/1004145468" title="github">github</a>
+			        
+						<a class="mail" target="_blank" href="http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=1004145468@qq.com" title="mail">mail</a>
+			        
+						<a class="jianshu" target="_blank" href="http://www.jianshu.com/u/5fbebf77711c" title="jianshu">jianshu</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+      <div class="body-wrap"><article id="post-Kotlin与Java纠缠史" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/12/26/Kotlin与Java纠缠史/" class="article-date">
+  	<time datetime="2017-12-25T20:22:18.000Z" itemprop="datePublished">2017-12-25</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Kotlin与Java纠缠史
+      
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Kotlin与Java差异化/">Kotlin与Java差异化</a></li></ul>
+	</div>
+
+        
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/Kotlin/">Kotlin</a>
+	</div>
+
+
+        
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="1-背景"><a href="#1-背景" class="headerlink" title="1. 背景"></a>1. 背景</h2><blockquote>
+<p>Jetbrains早在2010年推出Kotlin,在今年(2017)5月18,谷歌在今日举行的I/O开发者大会上宣布，将Kotlin语言作为安卓开发的一级编程语言,这个可爱的语言可于Java进行无缝混编。之前做过一段时间的C#和python开发，感觉三者之间总两两相似，不清楚是谁在模仿谁，谁在吃着谁的语法糖。</p>
+</blockquote>
+<h2 id="2-差异与对比"><a href="#2-差异与对比" class="headerlink" title="2. 差异与对比"></a>2. 差异与对比</h2><h3 id="2-1-构造器"><a href="#2-1-构造器" class="headerlink" title="2.1 构造器"></a>2.1 构造器</h3><table>
+<thead>
+<tr>
+<th style="text-align:center">java</th>
+<th style="text-align:center">Kotlin</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">构造器</td>
+<td style="text-align:center">主构造器</td>
+</tr>
+<tr>
+<td style="text-align:center">-</td>
+<td style="text-align:center">次构造器</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><p>java版：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">public class Model &#123;</span><br><span class="line"></span><br><span class="line">    public Model()&#123;&#125;</span><br><span class="line"></span><br><span class="line">    public Model(String name)&#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Kotlin版：</p>
+<ul>
+<li>主构造器<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">class KtModel constructor(name: String)</span><br><span class="line"></span><br><span class="line">ps：如果不私有化构造器或者注解构造器，constructor可以省略，即：</span><br><span class="line"></span><br><span class="line"> -&gt; class KtModel (name: String)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>由于Kotlin主构造器写法的出现，可以简化Java中JavaBean，关键字：data</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">data class KtModel(var id: Int, var name: String)</span><br></pre></td></tr></table></figure>
+<ul>
+<li>Kotlin版<ul>
+<li>次构造器<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">class Model&#123;</span><br><span class="line">    var mName:String? = null</span><br><span class="line">    constructor(name:String)&#123;</span><br><span class="line">        mName = name</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//由于Kotlin中有参数缺省写法，比如：</span><br><span class="line">class Model&#123;</span><br><span class="line">    var mName:String? = null</span><br><span class="line">    constructor(name:String,age:Int = 0)&#123;</span><br><span class="line">        mName = name</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//在java中实例化这个Model还是需要：</span><br><span class="line">Model model = new Model(&quot;Inke&quot;,20)</span><br><span class="line"></span><br><span class="line">//为了让java也享受到这个福利，Kotlin支持@JvmOverloads注解，为Java重载构造器</span><br><span class="line">class Model&#123;</span><br><span class="line">    var mName:String? = null</span><br><span class="line">    @JvmOverloads</span><br><span class="line">    constructor(name:String,age:Int = 0)&#123;</span><br><span class="line">        mName = name</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//此时：java调用</span><br><span class="line">Model model = new Model(&quot;Inke&quot;,20);</span><br><span class="line">Model model = new Model(&quot;Inke&quot;);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-2-自定义setter和getter"><a href="#2-2-自定义setter和getter" class="headerlink" title="2.2 自定义setter和getter"></a>2.2 自定义setter和getter</h3><blockquote>
+<p>由data声明的javabean默认实现了getter方法，如果变量为var类型也同时实现了getter方法，并且像equal() hashcode() toString()方法也自动复写了。除此，也支持自定义setter和getter方法，写法和c#的方式一样。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">class Student(var name: String, var grade: Int) &#123;</span><br><span class="line"></span><br><span class="line">    // Kotlin中的enum</span><br><span class="line">    enum class LEVEL &#123;GOOD, JUSTSOSO &#125;</span><br><span class="line">    //默认规则赋值</span><br><span class="line">    var level: LEVEL = if (grade &gt; 90) LEVEL.GOOD else LEVEL.JUSTSOSO</span><br><span class="line">        set(value) &#123;</span><br><span class="line">            field = value</span><br><span class="line">        &#125;</span><br><span class="line">        get() = field</span><br><span class="line">&#125;</span><br><span class="line">ps: 通过field代表set get的属性</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<h3 id="2-3-条件筛选"><a href="#2-3-条件筛选" class="headerlink" title="2.3 条件筛选"></a>2.3 条件筛选</h3><blockquote>
+<p>java中对某一字段类型根据不同的值进行筛选，同使用Switch“语句”，如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">switch (itemViewType) &#123;</span><br><span class="line">            case ITEM_VIEWTYPE_LINKMSG:// 带有link字段的链接消息</span><br><span class="line">                return new LinkMsgViewHolder(inflater);</span><br><span class="line">            case ITEM_VIEWTYPE_TEXTMSG_BYME:// 自己的文本消息</span><br><span class="line">                return new TextMsgByMeViewHolder(inflater);</span><br><span class="line">            case ITEM_VIEWTYPE_TEXTMSG_BYOTHER:// 别人的文本消息</span><br><span class="line">                return new TextMsgByOtherViewHolder(inflater);</span><br><span class="line">            case ITEM_VIEWTYPE_PIC_MSG_ME:// 自己的图片消息</span><br><span class="line">                return new PicMsgByMeViewHolder(inflater);</span><br><span class="line">            case ITEM_VIEWTYPE_PIC_MSG_OTHER:// 别人的图片消息</span><br><span class="line">                return new PicMsgByOtherViewHolder(inflater);</span><br><span class="line">            case ITEM_VIEWTYPE_AUDIO_MSG_ME:// 自己的语音消息</span><br><span class="line">            ...</span><br><span class="line">            &#125;</span><br></pre></td></tr></table></figure></p>
+<p>　kotlin中对某一字段类型筛选的关键字when,但它不属于语句，它属于表达式，真的是表达式哦。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">fun getWeekInfo(day: Int): String &#123;</span><br><span class="line">    //因为是函数 所以可以直接使用在return后面</span><br><span class="line">    return when (day) &#123;</span><br><span class="line">        1, 2, 3, 4, 5 -&gt; &quot;工作日&quot;</span><br><span class="line">        6, 7 -&gt; &quot;周末&quot;</span><br><span class="line">        else -&gt; &quot;unknow&quot;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">在Kotlin中几乎一切都是表达式，所以上面更有简化版：</span><br><span class="line"></span><br><span class="line">fun getWeekInfo(day: Int) = when (day) &#123;</span><br><span class="line">        1, 2, 3, 4, 5 -&gt; &quot;工作日&quot;</span><br><span class="line">        6, 7 -&gt; &quot;周末&quot;</span><br><span class="line">        else -&gt; &quot;unknow&quot;  //与java的default不能，else必须写，除非密封类(sealed class)可以不写，后面会详细讲解。</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>难道仅仅这些就够了，错，还有厉害的！前方高能。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">fun getWeekInfo(student: Student) = when &#123;</span><br><span class="line">    student.name.equals(&quot;马云&quot;) -&gt; &quot;考什么试！&quot;</span><br><span class="line">    student.grade &gt;= 60 -&gt; &quot;Pass&quot;</span><br><span class="line">    student.grade &lt; 60 -&gt; &quot;fail&quot;</span><br><span class="line">    student is Student -&gt; &quot;is 相当于 instanceof&quot;</span><br><span class="line">    else -&gt; &quot;unknow&quot;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">1. when可以不一定带参数，就使用方法参数</span><br><span class="line">2. when中的条件不需要同一种方式判断，只需要返回boolean类型</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<h3 id="2-4-循环结构"><a href="#2-4-循环结构" class="headerlink" title="2.4 循环结构"></a>2.4 循环结构</h3><table>
+<thead>
+<tr>
+<th style="text-align:center">语言</th>
+<th style="text-align:center">次数迭代</th>
+<th style="text-align:center">对象池迭代</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">java</td>
+<td style="text-align:center">支持</td>
+<td style="text-align:center">支持</td>
+</tr>
+<tr>
+<td style="text-align:center">kotlin</td>
+<td style="text-align:center">强支持</td>
+<td style="text-align:center">支持</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>java版本两种循环方式的写法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">for (int i = 0; i &lt; 10; i++) &#123;</span><br><span class="line">        //TODO</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">for (String arg : args) &#123;</span><br><span class="line">        //TODO</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
+<p>kotlin版本，与python写法相似<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">// 次数迭代</span><br><span class="line">for(i in 1..10)&#123;  //[1，10]区间往上遍历</span><br><span class="line">        print(i)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">for(i in 10 downTo 1)&#123; // [1,10]区间往下遍历</span><br><span class="line">        print(i)</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">for(i in 1 until 10)&#123; // [1,10)区间往上遍历</span><br><span class="line">        print(i)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">for(i in 1..10 step 2)&#123; //设置步数往上走</span><br><span class="line">        print(i)</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">//对象池迭代</span><br><span class="line">for (arg in args)&#123;</span><br><span class="line">        print(arg)</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<h3 id="2-5-引入静态方法"><a href="#2-5-引入静态方法" class="headerlink" title="2.5 引入静态方法"></a>2.5 引入静态方法</h3><blockquote>
+<p>引入静态方法的目的：</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">java</th>
+<th style="text-align:center">Kotlin</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">工具方法</td>
+<td style="text-align:center">类的扩展</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>引入方式：</p>
+<ul>
+<li>java: import static com.meelive.ingkee.base.utils.guava.Preconditions.checkArgument;</li>
+<li>Kotlin: import com.inke.utils.showToast</li>
+</ul>
+<p>静态方法的写法</p>
+<ul>
+<li>java：纯工具类的写法</li>
+<li>kotlin：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">fun Context.showToast(message: String) : Toast &#123;</span><br><span class="line">    var toast : Toast = Toast.makeText(this,message,Toast.LENGTH_SHORT)</span><br><span class="line">    toast.setGravity(Gravity.CENTER,0,0)</span><br><span class="line">    toast.show()</span><br><span class="line">    return toast</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">作为Context类的拓展方法，在Activity,Service中，可以直接使用，面向对象的封装性显得更加的严实（个人看法）。</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</blockquote>
+<h3 id="2-6-类型转换"><a href="#2-6-类型转换" class="headerlink" title="2.6 类型转换"></a>2.6 类型转换</h3><blockquote>
+<p>java中对于类型的转化，写的特别想吐的语句如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Person p = new Person();</span><br><span class="line">if(p instanceof Student)&#123;</span><br><span class="line">    Student student = (Student) p;</span><br><span class="line">    String id = student.uid;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>然后看看Kotlin的模仿版：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">val p = Person()</span><br><span class="line">if (p is Student) &#123;</span><br><span class="line">    val student = p as Student</span><br><span class="line">    var uid = student.uid</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>瞪大眼睛看看简化版，找不同的时间到了！<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">val p = Person()</span><br><span class="line">if (p is Student) &#123;</span><br><span class="line">    var uid = p.uid</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">is 进行判断后，Person类实例就已经装成Student类实例了，这就是Kotlin的智能类型转化。</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<h3 id="2-7-单例"><a href="#2-7-单例" class="headerlink" title="2.7 单例"></a>2.7 单例</h3><ul>
+<li><p>java版单例（懒汉式和饿汉式），懒汉式如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">public static RoomManager ins() &#123;</span><br><span class="line">    return SingletonHolder.INSTANCE;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">private static class SingletonHolder &#123;</span><br><span class="line">    private static final RoomManager INSTANCE = new RoomManager();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>kotlin版</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">class AppManager private constructor(var info: String) &#123;</span><br><span class="line">    companion object &#123;</span><br><span class="line">        private var INSTANCE: AppManager? = null</span><br><span class="line">        fun getInstance(info: String): AppManager &#123;</span><br><span class="line">            if (INSTANCE == null) &#123;</span><br><span class="line">                synchronized(AppManager::class.java) &#123;</span><br><span class="line">                    if (INSTANCE == null) &#123;</span><br><span class="line">                        INSTANCE = AppManager(info)</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            return INSTANCE!!</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    fun getPhoneInfo(arg: String): String? &#123;</span><br><span class="line">        return null</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<blockquote>
+<p>如果是无参单例，有更为简单的写法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * Created by YangLang on 2017/7/29.</span><br><span class="line"> */</span><br><span class="line">object AppManager &#123;</span><br><span class="line"></span><br><span class="line">    fun getPhoneInfo(arg: String): String? &#123;</span><br><span class="line">        return null</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<h3 id="2-8-正则表达式"><a href="#2-8-正则表达式" class="headerlink" title="2.8 正则表达式"></a>2.8 正则表达式</h3><ul>
+<li><p>java的写法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">String info = &quot;12,34,56.789&quot;;</span><br><span class="line">String[] split = info.split(&quot;[,.]&quot;);</span><br><span class="line">for (String s : split) &#123;</span><br><span class="line">    System.out.println(s);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">java默认使用正则去切割</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Kotlin写法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"> var info = &quot;12,34,56.789&quot;</span><br><span class="line">    for (s in info.split(&quot;,&quot;,&quot;.&quot;)) &#123;</span><br><span class="line">        println(s)</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">kotlin 为了编程更加口头化，生活化，默认不使用正则，上面写法的理解是，把info用&quot;,&quot;或者&quot;.&quot;进行分割。</span><br><span class="line"></span><br><span class="line">//进一步说明</span><br><span class="line">info.split(&quot;.&quot;)</span><br><span class="line">1. 在java中输出为空，因为.在正则规则中为统配符</span><br><span class="line">2. 在kotlin中输出为12,34,56和789，因为Kotlin默认不使用正则，所以.只是一个普通的字符。</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="2-9-嵌套类和内部类"><a href="#2-9-嵌套类和内部类" class="headerlink" title="2.9 嵌套类和内部类"></a>2.9 嵌套类和内部类</h3><blockquote>
+<p>说明： 嵌套类不含有外部类的引用，内部类拥有外部类的引用，正因为这样，也可以造成Activity没有释放，而内存泄漏问题。</p>
+<ul>
+<li>java<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">public class Outter &#123;</span><br><span class="line"></span><br><span class="line">   //包含Outter类的引用,可以使用Outter的方法</span><br><span class="line">    class Intter&#123;&#125;</span><br><span class="line"></span><br><span class="line">    // 不包含Outter类引用，不能使用Outter的方法</span><br><span class="line">    static class NotIntter&#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</blockquote>
+<ul>
+<li>Kotlin<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">class Outter &#123;</span><br><span class="line"></span><br><span class="line">    inner class Intter</span><br><span class="line"></span><br><span class="line">    class NotIntter</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<blockquote>
+<p>java默认为内部类，Kotlin默认为嵌套类，一定程度的避免造成内存泄漏无意识写法。</p>
+</blockquote>
+<h3 id="2-10-密封类"><a href="#2-10-密封类" class="headerlink" title="2.10 密封类"></a>2.10 密封类</h3><blockquote>
+<p>密封类的概念和C#一样，密封类可以被继承，但本身不能被实例化。所有的子类必须在同一文件中，相当于把密封类的子类都封装在一块，可以配合when使用。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sealed class BaseModel&#123;&#125;</span><br><span class="line">class FirstModel:BaseModel()&#123;&#125;</span><br><span class="line">class SecondModel:BaseModel()&#123;&#125;</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">fun justDo(baseModel: BaseModel) = when(baseModel)&#123;</span><br><span class="line">    is FirstModel -&gt; &quot;&quot;</span><br><span class="line">    is SecondModel -&gt; &quot;&quot;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">没有使用else,但是必须要写全baseModel的子类，如果编写期间新创建一个类继承BaseModel，此处when直接报错，密封类的这种特性，保证编写when表达式时，可以无一疏漏的考虑到每一种情况，约束代码的编写。</span><br></pre></td></tr></table></figure>
+<h3 id="2-11-代理"><a href="#2-11-代理" class="headerlink" title="2.11 代理"></a>2.11 代理</h3><table>
+<thead>
+<tr>
+<th style="text-align:center">代理方式\语言</th>
+<th style="text-align:center">java</th>
+<th style="text-align:center">Kotlin</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"> 静态代理</td>
+<td style="text-align:center">√</td>
+<td style="text-align:center">√</td>
+</tr>
+<tr>
+<td style="text-align:center"> 动态代理</td>
+<td style="text-align:center">√</td>
+<td style="text-align:center">√</td>
+</tr>
+<tr>
+<td style="text-align:center">属性代理</td>
+<td style="text-align:center">×</td>
+<td style="text-align:center">√</td>
+</tr>
+<tr>
+<td style="text-align:center">标准代理</td>
+<td style="text-align:center">×</td>
+<td style="text-align:center">√</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>这里不讲java的设计模式，主要关注Kotlin的代理模式，从类代理、属性代理、标准代理三个方面</p>
+<ul>
+<li>类代理<br>假如我们需要创建AnimatorListener的实例，Java中最常见的方式可能是匿名内部类，我们需要重载它的四个方法，虽然我们不都用，这样代码就显得多余。Kotlin中就可以用该接口得一个实现类代为重载，并处理自己的TODO。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">class MyAnimatorListener(var animatorListener: Animator.AnimatorListener):Animator.AnimatorListener by animatorListener&#123;</span><br><span class="line"></span><br><span class="line">    override fun onAnimationEnd(animation: Animator?) &#123;</span><br><span class="line">        //TODO 可以进行预处理</span><br><span class="line">        animatorListener.onAnimationEnd(animation)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">接口Animator.AnimatorListener需要的方法由传入参数animatorListener实现了，该MyAnimatorListener也通过关键字by，将需要实现的方法让animatorListener代为实现，重载方法后可以做预处理操作。</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</blockquote>
+<ul>
+<li>属性代理<blockquote>
+<p>当使用val修饰属性时，表明属性为不可修改，代理类继承ReadOnlyProperty&lt;被代理类，类型&gt;类</p>
+</blockquote>
+</li>
+</ul>
+<blockquote>
+<p>当使用var修饰时，属性可修改，代理类继承ReadWriteProperty<water,boolean><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * Created by YangLang on 2017/7/29.</span><br><span class="line"> */</span><br><span class="line">fun main(args: Array&lt;String&gt;) &#123;</span><br><span class="line">    var p = Person(&quot;inke&quot;, 21)</span><br><span class="line">    println(&quot;是否已经成人： $&#123;p.isAdult&#125;&quot;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Person(var name: String, var age: Int) &#123;</span><br><span class="line"></span><br><span class="line">    var isAdult: Boolean by isAdultProperty()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class isAdultProperty : ReadWriteProperty&lt;Person, Boolean&gt; &#123;</span><br><span class="line">    override fun setValue(thisRef: Person, property: KProperty&lt;*&gt;, value: Boolean) &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    override fun getValue(thisRef: Person, property: KProperty&lt;*&gt;): Boolean &#123;</span><br><span class="line">        return thisRef.age &gt; 18</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></water,boolean></p>
+</blockquote>
+<ul>
+<li>标准代理<blockquote>
+<p>Kotlin标准代理有lazy(),observable(),notNull().. 所有这样Kotlin自建代理都在delegates类下，主要讲lazy（懒加载） 在java中使用supplier和suppliers进行懒加载（延时求值），在kotlin中通过方法lazy直接延时求值，更快更强！！</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">class InfoConfig &#123;</span><br><span class="line">    val info: String by lazy &#123;</span><br><span class="line">        &quot;Inke info&quot;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">fun main(args: Array&lt;String&gt;) &#123;</span><br><span class="line">    print(InfoConfig().info)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">第一次获取info值时，会通过lazy函数传入的函数参数进行求值，以后再获取该值时，直接返回，所以懒加载可进行复杂计算。</span><br></pre></td></tr></table></figure>
+</blockquote>
+</li>
+</ul>
+<h3 id="2-12-属性赋初值问题"><a href="#2-12-属性赋初值问题" class="headerlink" title="2.12 属性赋初值问题"></a>2.12 属性赋初值问题</h3><blockquote>
+<p>属性不管申明为val还是var都必须赋初值，我们只能被迫写成 var info:String? = null。但是实际情况下有些属性不允许赋予无意义的初值如null，我总结有三种方式处理（可能不全面）：</p>
+</blockquote>
+<ul>
+<li>lateinit var info: String(只能用在var类型上)</li>
+<li>class Student(var name: String, var age: Int){ val isAudit = age &gt; 18} (可用在var或者val上，但只是在初始化时赋一次值~)</li>
+<li>val info: String by lazy {<pre><code>&quot;Inke info&quot;
+</code></pre> } （只能用在val类型上）</li>
+</ul>
+<h3 id="2-13-lambda的概要（对象引用，数组用法）"><a href="#2-13-lambda的概要（对象引用，数组用法）" class="headerlink" title="2.13 lambda的概要（对象引用，数组用法）"></a>2.13 lambda的概要（对象引用，数组用法）</h3><blockquote>
+<p>用lambda表达式创建函数“变形体”<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var add = &#123; x: Int, y: Int -&gt; x + y &#125;</span><br><span class="line">print(add(1,2))</span><br></pre></td></tr></table></figure></p>
+<p>lambda缩写演史<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">// 1. 匿名内部类</span><br><span class="line">rb_home.setOnClickListener(object:View.OnClickListener&#123;</span><br><span class="line">            override fun onClick(v: View?) &#123;</span><br><span class="line">            &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">// 2. 如果内部类中只有一个方法,缩写成lambda表达式</span><br><span class="line"> rb_home.setOnClickListener(&#123;v -&gt; Unit&#125;)</span><br><span class="line"> </span><br><span class="line">// 3. 如果函数参数最后一个参数为lambda表达式，可以提取放在函数参数括号外面</span><br><span class="line"> rb_home.setOnClickListener()&#123;v -&gt; Unit&#125;</span><br><span class="line"> </span><br><span class="line"> // 4. 如果函数参数括号为空，可以省略</span><br><span class="line"> rb_home.setOnClickListener&#123;v -&gt; Unit&#125;</span><br><span class="line"> </span><br><span class="line"> // 5. 如果lambda表达式形参咩有使用，可以省略</span><br><span class="line"> rb_home.setOnClickListener&#123;Unit&#125; &lt;==&gt; rb_home.setOnClickListener&#123;//TODO&#125;</span><br></pre></td></tr></table></figure></p>
+<p>可以根据以上的省略原则可以定义我们自己的的函数。如在java中做版本的判断，我们会写：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">if (Build.VERSION.SDK_INT &gt;= Build.VERSION_CODES.JELLY_BEAN) &#123;</span><br><span class="line">    webSettings.setAllowUniversalAccessFromFileURLs(true);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">这样写起来不流程，而且不易复用</span><br></pre></td></tr></table></figure></p>
+<p>Kotlin上面可以这样定义函数<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">inline fun UP_VERSIONJELLY_BEAN(function: () -&gt; Unit)&#123;</span><br><span class="line">    if(Build.VERSION.SDK_INT &gt;= Build.VERSION_CODES.JELLY_BEA)&#123;</span><br><span class="line">        function()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">在使用时，可以毫不犹豫的写成这样：</span><br><span class="line">UP_VERSIONJELLY_BEAN&#123;</span><br><span class="line">    //TODO</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<h3 id="2-14-反射中优质提升"><a href="#2-14-反射中优质提升" class="headerlink" title="2.14 反射中优质提升"></a>2.14 反射中优质提升</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">public class Test&lt;T&gt; &#123;</span><br><span class="line"></span><br><span class="line">    public Test() &#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>以上的泛型写法，在java中运行时由于类型擦除的原因，无法确定T的类型，很难获取该对象的字节码对象，不过在早两天看到Guava支持运行时获取泛型类型，通过TypeToken工具类。但是在Kotlin可以轻松解决这样问题，通过标注关键字reified。</p>
+</blockquote>
+<ul>
+<li><a href="http://ifeve.com/guava-reflection/" target="_blank" rel="noopener">TypeToken</a></li>
+<li>reified关键字使用<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">inline fun &lt;reified T: Activity&gt; Activity.newIntent() &#123;</span><br><span class="line">    val intent = Intent(this, T::class.java)</span><br><span class="line">    startActivity(intent)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="2-15-let-apply-run-with的区别"><a href="#2-15-let-apply-run-with的区别" class="headerlink" title="2.15 let apply run with的区别"></a>2.15 let apply run with的区别</h3><p><a href="http://www.jianshu.com/p/28ce69d58fea" target="_blank" rel="noopener">传送门地址</a></p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2017/12/23/Kotlin（android）协程中文翻译/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Kotlin（android）协程中文翻译</div>
+      <strong class="article-nav-caption">&gt;</strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="ds-share share" data-thread-key="Kotlin与Java纠缠史" data-title="Kotlin与Java纠缠史" data-url="https://1004145468.github.io/2017/12/26/Kotlin与Java纠缠史/"  data-images="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1513413561480&amp;di=b6c307347e043052915538ae362b32c9&amp;imgtype=0&amp;src=http%3A%2F%2Fpic30.photophoto.cn%2F20140119%2F0005018372822892_b.jpg" data-content="Kotlin与Java纠缠史">
+    <div class="ds-share-inline">
+      <ul  class="ds-share-icons-16">
+      <!--
+      	<li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+        <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+        <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+        <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+        <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+       -->
+      </ul>
+      <div class="ds-share-icons-more">
+      </div>
+    </div>
+ </div>
+ 
+
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+      <div class="footer-left">
+        &copy; 2018 Mr Yang
+      </div>
+        <div class="footer-right">
+          <a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/1004145468" target="_blank">Mr Yang</a>
+        </div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="/js/main.js"></script>
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js"></script>
+
+
+  </div>
+</body>
+</html>

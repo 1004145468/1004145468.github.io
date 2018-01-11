@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Kotlin（android）协程中文翻译 | Yang&#39;s Blog</title>
+
+  <!-- keywords -->
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="1.官方文档地址 https://github.com/Kotlin/kotlinx.coroutines/blob/master/ui/coroutines-guide-ui.md#android  2. 协程的配置 compile “org.jetbrains.kotlinx:kotlinx-coroutines-android:0.18”  3.开启协程 Coroutines are exp">
+<meta name="keywords" content="Kotlin官方翻译文档">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Kotlin（android）协程中文翻译">
+<meta property="og:url" content="https://1004145468.github.io/2017/12/23/Kotlin（android）协程中文翻译/index.html">
+<meta property="og:site_name" content="Yang&#39;s Blog">
+<meta property="og:description" content="1.官方文档地址 https://github.com/Kotlin/kotlinx.coroutines/blob/master/ui/coroutines-guide-ui.md#android  2. 协程的配置 compile “org.jetbrains.kotlinx:kotlinx-coroutines-android:0.18”  3.开启协程 Coroutines are exp">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-01-11T09:09:49.805Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Kotlin（android）协程中文翻译">
+<meta name="twitter:description" content="1.官方文档地址 https://github.com/Kotlin/kotlinx.coroutines/blob/master/ui/coroutines-guide-ui.md#android  2. 协程的配置 compile “org.jetbrains.kotlinx:kotlinx-coroutines-android:0.18”  3.开启协程 Coroutines are exp">
+  
+    <link rel="alternative" href="/atom.xml" title="Yang&#39;s Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1513413561480&di=b6c307347e043052915538ae362b32c9&imgtype=0&src=http%3A%2F%2Fpic30.photophoto.cn%2F20140119%2F0005018372822892_b.jpg">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+  
+
+  <script src="//cdn.bootcss.com/require.js/2.3.2/require.min.js"></script>
+  <script src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+
+  
+</head>
+<body>
+  <div id="container">
+    <div id="particles-js"></div>
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1513413561480&amp;di=b6c307347e043052915538ae362b32c9&amp;imgtype=0&amp;src=http%3A%2F%2Fpic30.photophoto.cn%2F20140119%2F0005018372822892_b.jpg" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">Mr Yang</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">被代码耽误的二逼青年</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						<li>友情链接</li>
+						
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">最新文章</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/1004145468" title="github">github</a>
+					        
+								<a class="mail" target="_blank" href="http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=1004145468@qq.com" title="mail">mail</a>
+					        
+								<a class="jianshu" target="_blank" href="http://www.jianshu.com/u/5fbebf77711c" title="jianshu">jianshu</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Android•Lottie/" style="font-size: 10px;">Android•Lottie</a> <a href="/tags/Android源码分析/" style="font-size: 20px;">Android源码分析</a> <a href="/tags/Android进阶知识/" style="font-size: 20px;">Android进阶知识</a> <a href="/tags/Intellij插件开发/" style="font-size: 10px;">Intellij插件开发</a> <a href="/tags/Kotlin与Java差异化/" style="font-size: 10px;">Kotlin与Java差异化</a> <a href="/tags/Kotlin官方翻译文档/" style="font-size: 10px;">Kotlin官方翻译文档</a> <a href="/tags/Kotlin开发UI/" style="font-size: 10px;">Kotlin开发UI</a> <a href="/tags/ListView与公聊/" style="font-size: 10px;">ListView与公聊</a> <a href="/tags/多线程处理/" style="font-size: 10px;">多线程处理</a> <a href="/tags/注解/" style="font-size: 10px;">注解</a>
+					</div>
+				</section>
+				
+				
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://www.jackywang.tech/">JackWang</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+			</div>
+		</div>
+	</header>				
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">Mr Yang</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				<img lazy-src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1513413561480&amp;di=b6c307347e043052915538ae362b32c9&amp;imgtype=0&amp;src=http%3A%2F%2Fpic30.photophoto.cn%2F20140119%2F0005018372822892_b.jpg" class="js-avatar">
+			</div>
+			<hgroup>
+			  <h1 class="header-author">Mr Yang</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">被代码耽误的二逼青年</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">最新文章</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/1004145468" title="github">github</a>
+			        
+						<a class="mail" target="_blank" href="http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=1004145468@qq.com" title="mail">mail</a>
+			        
+						<a class="jianshu" target="_blank" href="http://www.jianshu.com/u/5fbebf77711c" title="jianshu">jianshu</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+      <div class="body-wrap"><article id="post-Kotlin（android）协程中文翻译" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/12/23/Kotlin（android）协程中文翻译/" class="article-date">
+  	<time datetime="2017-12-22T16:27:33.000Z" itemprop="datePublished">2017-12-22</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Kotlin（android）协程中文翻译
+      
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Kotlin官方翻译文档/">Kotlin官方翻译文档</a></li></ul>
+	</div>
+
+        
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/Kotlin/">Kotlin</a>
+	</div>
+
+
+        
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="1-官方文档地址"><a href="#1-官方文档地址" class="headerlink" title="1.官方文档地址"></a>1.官方文档地址</h2><blockquote>
+<p><a href="https://github.com/Kotlin/kotlinx.coroutines/blob/master/ui/coroutines-guide-ui.md#android" target="_blank" rel="noopener">https://github.com/Kotlin/kotlinx.coroutines/blob/master/ui/coroutines-guide-ui.md#android</a></p>
+</blockquote>
+<h2 id="2-协程的配置"><a href="#2-协程的配置" class="headerlink" title="2. 协程的配置"></a>2. 协程的配置</h2><blockquote>
+<p>compile “org.jetbrains.kotlinx:kotlinx-coroutines-android:0.18”</p>
+</blockquote>
+<h2 id="3-开启协程"><a href="#3-开启协程" class="headerlink" title="3.开启协程"></a>3.开启协程</h2><blockquote>
+<p>Coroutines are experimental feature in Kotlin. You need to enable coroutines in Kotlin compiler by adding the following line to gradle.properties file。<br>协程是Kotlin一项实验性的功能，你需要打开在项目工程 gradle.properties中声明打开。</p>
+<p>添加代码： kotin.coroutines = enable</p>
+</blockquote>
+<h3 id="4-在UIContext启动协程，可以更新UI"><a href="#4-在UIContext启动协程，可以更新UI" class="headerlink" title="4. 在UIContext启动协程，可以更新UI"></a>4. 在UIContext启动协程，可以更新UI</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">import kotlinx.coroutines.experimental.CommonPool  // 运行在线程池中一个协程</span><br><span class="line">import kotlinx.coroutines.experimental.Unconfined // 在当前默认的协程中运行</span><br><span class="line">import kotlinx.coroutines.experimental.android.UI //运行在可控制UI的协程中</span><br><span class="line"></span><br><span class="line"> ...</span><br><span class="line"> </span><br><span class="line"> launch(UI) &#123; // launch coroutine in UI context</span><br><span class="line">        for (i in 10 downTo 1) &#123; // countdown from 10 to 1 </span><br><span class="line">            hello.text = &quot;Countdown $i ...&quot; // update text</span><br><span class="line">            delay(500) // wait half a second</span><br><span class="line">        &#125;</span><br><span class="line">        hello.text = &quot;Done!&quot;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h3 id="5-取消一个协程任务"><a href="#5-取消一个协程任务" class="headerlink" title="5. 取消一个协程任务"></a>5. 取消一个协程任务</h3><blockquote>
+<p>We can keep a reference to the Job object that launch function returns and use it to cancel coroutine when we want to stop it. </p>
+<p>我们能持有协程的引用，通过它去获取协程处理后的结果或取消协程<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">    val job = launch(UI) &#123; // launch coroutine in UI context</span><br><span class="line">        for (i in 10 downTo 1) &#123; // countdown from 10 to 1 </span><br><span class="line">            hello.text = &quot;Countdown $i ...&quot; // update text</span><br><span class="line">            delay(500) // wait half a second</span><br><span class="line">        &#125;</span><br><span class="line">        hello.text = &quot;Done!&quot;</span><br><span class="line">    &#125;</span><br><span class="line">    // cancel coroutine on click</span><br><span class="line">   job.cancel() </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<hr>
+<h3 id="6-在UI线程中使用actor"><a href="#6-在UI线程中使用actor" class="headerlink" title="6. 在UI线程中使用actor"></a>6. 在UI线程中使用actor</h3><h4 id="1-模式一：-At-most-one-concurrent-job（最多执行一次）"><a href="#1-模式一：-At-most-one-concurrent-job（最多执行一次）" class="headerlink" title="1. 模式一： At most one concurrent job（最多执行一次）"></a>1. 模式一： At most one concurrent job（最多执行一次）</h4><blockquote>
+<p>使用情况：View防止被多次点击，造成没必要的浪费。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">fun View.onClick(action: suspend () -&gt; Unit) &#123;</span><br><span class="line">    // launch one actor</span><br><span class="line">    val eventActor = actor&lt;Unit&gt;(UI) &#123;</span><br><span class="line">        for (event in channel) action()</span><br><span class="line">    &#125;</span><br><span class="line">    // install a listener to activate this actor</span><br><span class="line">    setOnClickListener &#123; </span><br><span class="line">        eventActor.offer(Unit)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="官方解释："><a href="#官方解释：" class="headerlink" title="官方解释："></a>官方解释：</h4><blockquote>
+<p>Try clicking repeatedly on a circle in this version of the code. The clicks are just ignored while the countdown animation is running. This happens because the actor is busy with an animation and does not receive from its channel. By default, an actor’s mailbox is backed by RendezvousChannel, whose offer operation succeeds only when the receive is active.</p>
+<p>在上面的这份代码中，进行循环的点击，当一次点击的倒计时动画进行时，后续频繁点击事件将会被忽略。原因是因为此actor正在忙于处理该动画，并且将receive状态设置为unactive，当有actor.offer()时，由于此actor的receive状态为unactive，所以事件就会被抛弃！</p>
+</blockquote>
+<h4 id="模式二：-Event-conflation（事件地合并）"><a href="#模式二：-Event-conflation（事件地合并）" class="headerlink" title="模式二： Event conflation（事件地合并）"></a>模式二： Event conflation（事件地合并）</h4><blockquote>
+<p>Sometimes it is more appropriate to process the most recent event, instead of just ignoring events while we were busy processing the previous one. The actor coroutine builder accepts an optional capacity parameter that controls the implementation of the channel that this actor is using for its mailbox. The description of all the available choices is given in documentation of the Channel() factory function.use ConflatedChannel by passing Channel.CONFLATED capacity value. </p>
+<p>当我们正在执行一次点击的动画时，后续频繁点击事件更合理的处理方式是接受在动画结束期间的最后一次点击事件，而不是像上面那样直接被忽视。actor协程在创建时，可接受一个参数来控制它内部的channel（也称为信箱）的实现方式。通过传递参数Channel.CONFLATED来创建一个ConflatedChannel（channel的一种实现类型）</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">fun Node.onClick(action: suspend (MouseEvent) -&gt; Unit) &#123;</span><br><span class="line">    // launch one actor to handle all events on this node</span><br><span class="line">    val eventActor = actor&lt;MouseEvent&gt;(UI, capacity = Channel.CONFLATED) &#123; // &lt;--- Changed here</span><br><span class="line">        for (event in channel) action(event) // pass event to action</span><br><span class="line">    &#125;</span><br><span class="line">    // install a listener to offer events to this actor</span><br><span class="line">    onMouseClicked = EventHandler &#123; event -&gt;</span><br><span class="line">        eventActor.offer(event)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>Now, if a circle is clicked while the animation is running, it restarts animation after the end of it. Just once. Repeated clicks while the animation is running are conflated and only the most recent event gets to be processed.</p>
+<p>当一次动画没有结束，在这期间的点击事件都将被合并成一次，当动画结束后，又会仅此一次的启动该动画！</p>
+</blockquote>
+<h4 id="模式三：Sequence-Event-串行事件"><a href="#模式三：Sequence-Event-串行事件" class="headerlink" title="模式三：Sequence Event(串行事件)"></a>模式三：Sequence Event(串行事件)</h4><blockquote>
+<p>You can experiment with capacity parameter in the above line to see how it affects the behaviour of the code. Setting capacity = Channel.UNLIMITED creates a coroutine with LinkedListChannel mailbox that buffers all events. In this case, the animation runs as many times as the circle is clicked.</p>
+<p> 上面我们看到了通过actor来创建协程，参数capacity来控制channel（信箱）的类型。你能够尝试capacity的不同值来体验它带来的效果。比如，我们设置capacity=Channel.UNLIMITED 来创建一个内部的channel（信箱）类型为LinkedListChannel，顾名思义它能接受我们的每一次事件。在这样的情景下，我们点击按钮多少次，动画将会执行多少次！</p>
+</blockquote>
+<h4 id="模式四：-more-type-通过修改capacity的类型，创建不同的channel"><a href="#模式四：-more-type-通过修改capacity的类型，创建不同的channel" class="headerlink" title="模式四： more type(通过修改capacity的类型，创建不同的channel)"></a>模式四： more type(通过修改capacity的类型，创建不同的channel)</h4><h3 id="7-Blocking-operation-块级操作"><a href="#7-Blocking-operation-块级操作" class="headerlink" title="7. Blocking operation(块级操作)"></a>7. Blocking operation(块级操作)</h3><h4 id="官方给出的事例："><a href="#官方给出的事例：" class="headerlink" title="官方给出的事例："></a>官方给出的事例：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">fun fib(x: Int): Int =</span><br><span class="line">    if (x &lt;= 1) 1 else fib(x - 1) + fib(x - 2)</span><br><span class="line">    </span><br><span class="line">fun setup(hello: Text, fab: Circle) &#123;</span><br><span class="line">    var result = &quot;none&quot; // the last result</span><br><span class="line">    // counting animation </span><br><span class="line">    launch(UI) &#123;</span><br><span class="line">        var counter = 0</span><br><span class="line">        while (true) &#123;</span><br><span class="line">            hello.text = &quot;$&#123;++counter&#125;: $result&quot;</span><br><span class="line">            delay(100) // update the text every 100ms</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    // compute the next fibonacci number of each click</span><br><span class="line">    var x = 1</span><br><span class="line">    fab.onClick &#123;</span><br><span class="line">        result = &quot;fib($x) = $&#123;fib(x)&#125;&quot;</span><br><span class="line">        x++</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>Issume（产生问题）: Try clicking on the circle in this example. After around 30-40th click our naive computation is going to become quite slow and you would immediately see how the UI thread freezes, because the animation stops running during UI freeze.</p>
+<p>根据上面的代码，如果我们快速点击30-40次，计算就会变得越来越慢，UI线程慢慢被冻结，动画也就会停止运行。</p>
+<p>Solusation（解决方案）: Blocking Operation（块级操作）<br>The fix for the blocking operations on the UI thread is quite straightforward with coroutines. We’ll convert our “blocking” fib function to a non-blocking suspending function that runs the computation in the background thread by using run function to change its execution context to CommonPool of background threads. Notice, that fib function is now marked with suspend modifier. It does not block the coroutine that it is invoked from anymore, but suspends its execution when the computation in the background thread is working</p>
+<p>在协程中通过块级操作直接来处理UI，我们可以使用“run”函数来改变它的执行上下文到一个后台线程（CommonPool），从而将一个阻塞的“fib”函数转化为一个不被阻塞的挂起函数。注意，此时的“fib”函数被suspend修饰，这个函数使用时不会阻塞协程，当后台线程计算时，它会挂起此函数的执行，如下：</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">suspend fun fib(x: Int): Int = run(CommonPool) &#123;</span><br><span class="line">    if (x &lt;= 1) 1 else fib(x - 1) + fib(x - 2)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>Note（说明）：You can run this code and verify that UI is not frozen while large Fibonacci numbers are being computed. However, this code computes fib somewhat slower, because every recursive call to fib goes via run. This is not a big problem in practice, because run is smart enough to check that the coroutine is already running in the required context and avoids overhead of dispatching coroutine to a different thread again. It is an overhead nonetheless, which is visible on this primitive code that does nothing else, but only adds integers in between invocations to run. For some more substantial code, the overhead of an extra run invocation is not going to be significant.</p>
+<p>你能运行这份代码，验证在计算大数字时，Ui线程会不会阻塞。然而，它计算fib时会变得更慢，因为每一次回调fib函数时都会运行run方法，但是它并不是一个大问题，因为run函数是非常智能的，它会检查当前管理并正在运行的协程，避免此协程在不同的线程中重复的运行。尽管原始代码中在协程中反复的使用，但是不造成什么影响，因为每一个协程持有的是这份代码的Int值，对于一些更实质性的代码，额外运行调用的开销并不显著。</p>
+</blockquote>
+<h4 id="为了不反复的调用run函数，当然你也可以这样："><a href="#为了不反复的调用run函数，当然你也可以这样：" class="headerlink" title="为了不反复的调用run函数，当然你也可以这样："></a>为了不反复的调用run函数，当然你也可以这样：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">suspend fun fib(x: Int): Int = run(CommonPool) &#123;</span><br><span class="line">    fibBlocking(x)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">fun fibBlocking(x: Int): Int = </span><br><span class="line">    if (x &lt;= 1) 1 else fibBlocking(x - 1) + fibBlocking(x - 2)</span><br></pre></td></tr></table></figure>
+<h3 id="8-Lifecycle-and-coroutine-parent-child-hierarchy-生命周期绑定与父子继承关系"><a href="#8-Lifecycle-and-coroutine-parent-child-hierarchy-生命周期绑定与父子继承关系" class="headerlink" title="8. Lifecycle and coroutine parent-child hierarchy(生命周期绑定与父子继承关系)"></a>8. Lifecycle and coroutine parent-child hierarchy(生命周期绑定与父子继承关系)</h3><blockquote>
+<p>（Issume: ）A typical UI application has a number of elements with a lifecycle. Windows, UI controls, activities, views, fragments and other visual elements are created and destroyed. A long-running coroutine, performing some IO or a background computation, can retain references to the corresponding UI elements for longer than it is needed, preventing garbage collection of the whole trees of UI objects that were already destroyed and will not be displayed anymore.</p>
+<p>(问题)传统的UI应用都会包含大量拥有生命周期的元素，如窗口，界面，控件… 当这个元素不在需要的时候，协程可能存在它的引用，为了解决这个问题。</p>
+<p>（solution）The natural solution to this problem is to associate a Job object with each UI object that has a lifecycle and create all the coroutines in the context of this job.</p>
+<p>（解决办法：）将协程与每一个控件元素的生命周期绑定。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">interface JobHolder &#123;</span><br><span class="line">    val job: Job</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">class MainActivity : AppCompatActivity(), JobHolder &#123;</span><br><span class="line">    override val job: Job = Job() // the instance of a Job for this activity</span><br><span class="line"></span><br><span class="line">    override fun onDestroy() &#123;</span><br><span class="line">        super.onDestroy()</span><br><span class="line">        job.cancel() // cancel the job when activity is destroyed</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    // the rest of code</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">val View.contextJob: Job</span><br><span class="line">    get() = (context as? JobHolder)?.job ?: NonCancellable</span><br></pre></td></tr></table></figure>
+<h4 id="这样的话，每一个控件都与该控件所在的Activity中的Job关联起来了-使用如下："><a href="#这样的话，每一个控件都与该控件所在的Activity中的Job关联起来了-使用如下：" class="headerlink" title="这样的话，每一个控件都与该控件所在的Activity中的Job关联起来了,使用如下："></a>这样的话，每一个控件都与该控件所在的Activity中的Job关联起来了,使用如下：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">fun View.onClick(action: suspend () -&gt; Unit) &#123;</span><br><span class="line">    // launch one actor as a parent of the context job</span><br><span class="line">    val eventActor = actor&lt;Unit&gt;(contextJob + UI, capacity = Channel.CONFLATED) &#123;</span><br><span class="line">        for (event in channel) action()</span><br><span class="line">    &#125;</span><br><span class="line">    // install a listener to activate this actor</span><br><span class="line">    setOnClickListener &#123;</span><br><span class="line">        eventActor.offer(Unit)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="官方解释"><a href="#官方解释" class="headerlink" title="官方解释"></a>官方解释</h5><blockquote>
+<p>Notice how contextJob + UI expression is used to start an actor in the above code. It defines a coroutine context for our new actor that includes the job and the UI dispatcher. The coroutine that is started by this actor(contextJob + UI) expression is going to become a child of the job of the corresponding context. When the activity is destroyed and its job is cancelled all its children coroutines are cancelled, too.</p>
+<p>它包含两个上下文contextJob + UI来创建一个协程actor对象，该协程将会成为contextJob的子类，当Activity被销毁，contextJob会被取消，那么它的子类协程都将会被取消。</p>
+</blockquote>
+<h3 id="9-Starting-coroutine-in-UI-event-handlers-without-dispatch（在协程中不使用调度器）"><a href="#9-Starting-coroutine-in-UI-event-handlers-without-dispatch（在协程中不使用调度器）" class="headerlink" title="9.Starting coroutine in UI event handlers without dispatch（在协程中不使用调度器）"></a>9.Starting coroutine in UI event handlers without dispatch（在协程中不使用调度器）</h3><h5 id="使用调度器的情况：-默认使用"><a href="#使用调度器的情况：-默认使用" class="headerlink" title="使用调度器的情况：(默认使用)"></a>使用调度器的情况：(默认使用)</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">fun setup(hello: Text, fab: Circle) &#123;</span><br><span class="line">    fab.onMouseClicked = EventHandler &#123;</span><br><span class="line">        println(&quot;Before launch&quot;)</span><br><span class="line">        launch(UI) &#123; </span><br><span class="line">            println(&quot;Inside coroutine&quot;)</span><br><span class="line">            delay(100)</span><br><span class="line">            println(&quot;After delay&quot;)</span><br><span class="line">        &#125; </span><br><span class="line">        println(&quot;After launch&quot;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Before launch</span><br><span class="line">After launch</span><br><span class="line">Inside coroutine</span><br><span class="line">After delay</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>However, in this particular case when coroutine is started from an event handler and there is no other code around it, this extra dispatch does indeed add an extra overhead without bringing any additional value. In this case an optional CoroutineStart parameter to launch, async and actor coroutine builders can be used for performance optimization. Setting it to the value of CoroutineStart.UNDISPATCHED has the effect of starting to execute coroutine immediately until its first suspension point as the following example shows:</p>
+<p>在上述案例中，只有等EventHandler把事情处理完毕后，才开始协程，这种额外的调度确实增加了额外的开销而没有带来任何附加价值。我们可以通过参数CoroutineStart来控制，此参数受用与launch、async、actor。设置 CoroutineStart.UNDISPATCHED 将马上开始协程，知道遇到挂载点为止。代码如下：</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">fun setup(hello: Text, fab: Circle) &#123;</span><br><span class="line">    fab.onMouseClicked = EventHandler &#123;</span><br><span class="line">        println(&quot;Before launch&quot;)</span><br><span class="line">        launch(UI, CoroutineStart.UNDISPATCHED) &#123; // &lt;--- Notice this change</span><br><span class="line">            println(&quot;Inside coroutine&quot;)</span><br><span class="line">            delay(100)                            // &lt;--- And this is where coroutine suspends      </span><br><span class="line">            println(&quot;After delay&quot;)</span><br><span class="line">        &#125;</span><br><span class="line">        println(&quot;After launch&quot;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Before launch</span><br><span class="line">Inside coroutine</span><br><span class="line">After launch</span><br><span class="line">After delay</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/12/26/Kotlin与Java纠缠史/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">&lt;</strong>
+      <div class="article-nav-title">
+        
+          Kotlin与Java纠缠史
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/12/22/Kotlin之UI篇/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Kotlin之UI篇</div>
+      <strong class="article-nav-caption">&gt;</strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="ds-share share" data-thread-key="Kotlin（android）协程中文翻译" data-title="Kotlin（android）协程中文翻译" data-url="https://1004145468.github.io/2017/12/23/Kotlin（android）协程中文翻译/"  data-images="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1513413561480&amp;di=b6c307347e043052915538ae362b32c9&amp;imgtype=0&amp;src=http%3A%2F%2Fpic30.photophoto.cn%2F20140119%2F0005018372822892_b.jpg" data-content="Kotlin（android）协程中文翻译">
+    <div class="ds-share-inline">
+      <ul  class="ds-share-icons-16">
+      <!--
+      	<li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+        <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+        <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+        <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+        <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+       -->
+      </ul>
+      <div class="ds-share-icons-more">
+      </div>
+    </div>
+ </div>
+ 
+
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+      <div class="footer-left">
+        &copy; 2018 Mr Yang
+      </div>
+        <div class="footer-right">
+          <a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/1004145468" target="_blank">Mr Yang</a>
+        </div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="/js/main.js"></script>
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js"></script>
+
+
+  </div>
+</body>
+</html>

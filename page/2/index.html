@@ -3,24 +3,22 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Gson 源码分析 | Yang&#39;s Blog</title>
+  <title>Yang&#39;s Blog</title>
 
   <!-- keywords -->
   
 
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="1. 闯入背景: 公司项目中使用Gson框架对服务器传过来的Json数据进行解析，而服务器后台数据很大程度上是通过运营后台人员配置。由于各种原因运营可能将某一字段类型配置错误，比如集合类型配置成字符串类型。虽然业务层会进行异常的捕获，但是仅因为一个字段的错误，导致整个Json数据失效，因小失大，甚至可能会造成重大损失，比如直播间礼物墙，因为一个礼物的某一个字段的错误，导致整个礼物墙展示为空，在线上">
-<meta name="keywords" content="Android源码分析,Android进阶知识">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Gson 源码分析">
-<meta property="og:url" content="https://1004145468.github.io/2017/12/16/Gson-源码分析/index.html">
+  <meta name="description" content="学习Android Android Android源码分析">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Yang&#39;s Blog">
+<meta property="og:url" content="https://1004145468.github.io/page/2/index.html">
 <meta property="og:site_name" content="Yang&#39;s Blog">
-<meta property="og:description" content="1. 闯入背景: 公司项目中使用Gson框架对服务器传过来的Json数据进行解析，而服务器后台数据很大程度上是通过运营后台人员配置。由于各种原因运营可能将某一字段类型配置错误，比如集合类型配置成字符串类型。虽然业务层会进行异常的捕获，但是仅因为一个字段的错误，导致整个Json数据失效，因小失大，甚至可能会造成重大损失，比如直播间礼物墙，因为一个礼物的某一个字段的错误，导致整个礼物墙展示为空，在线上">
+<meta property="og:description" content="学习Android Android Android源码分析">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2017-12-16T08:28:58.670Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Gson 源码分析">
-<meta name="twitter:description" content="1. 闯入背景: 公司项目中使用Gson框架对服务器传过来的Json数据进行解析，而服务器后台数据很大程度上是通过运营后台人员配置。由于各种原因运营可能将某一字段类型配置错误，比如集合类型配置成字符串类型。虽然业务层会进行异常的捕获，但是仅因为一个字段的错误，导致整个Json数据失效，因小失大，甚至可能会造成重大损失，比如直播间礼物墙，因为一个礼物的某一个字段的错误，导致整个礼物墙展示为空，在线上">
+<meta name="twitter:title" content="Yang&#39;s Blog">
+<meta name="twitter:description" content="学习Android Android Android源码分析">
   
     <link rel="alternative" href="/atom.xml" title="Yang&#39;s Blog" type="application/atom+xml">
   
@@ -182,7 +180,9 @@
 		</header>				
 	</div>
 </nav>
-      <div class="body-wrap"><article id="post-Gson-源码分析" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap">
+  
+    <article id="post-Gson-源码分析" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
       <a href="/2017/12/16/Gson-源码分析/" class="article-date">
@@ -198,29 +198,15 @@
       <header class="article-header">
         
   
-    <h1 class="article-title" itemprop="name">
-      Gson 源码分析
-      
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/12/16/Gson-源码分析/">
+        Gson 源码分析
+        
+      </a>
     </h1>
   
 
       </header>
-      
-      <div class="article-info article-info-post">
-        
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android源码分析/">Android源码分析</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android进阶知识/">Android进阶知识</a></li></ul>
-	</div>
-
-        
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/Android/">Android</a>
-	</div>
-
-
-        
-        <div class="clearfix"></div>
-      </div>
       
     
     <div class="article-entry" itemprop="articleBody">
@@ -360,48 +346,40 @@
       
     </div>
     
-  </div>
-  
-    
-<nav id="article-nav">
-  
-    <a href="/2017/12/17/OkHttp3-0-源码分析/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">&lt;</strong>
-      <div class="article-nav-title">
-        
-          OkHttp3.0-源码分析
-        
-      </div>
-    </a>
-  
-  
-</nav>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android源码分析/">Android源码分析</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android进阶知识/">Android进阶知识</a></li></ul>
+	</div>
 
+      
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/Android/">Android</a>
+	</div>
+
+
+      
+      <div class="clearfix"></div>
+    </div>
+      
+    
+  </div>
   
 </article>
 
 
-<div class="ds-share share" data-thread-key="Gson-源码分析" data-title="Gson 源码分析" data-url="https://1004145468.github.io/2017/12/16/Gson-源码分析/"  data-images="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1513413561480&amp;di=b6c307347e043052915538ae362b32c9&amp;imgtype=0&amp;src=http%3A%2F%2Fpic30.photophoto.cn%2F20140119%2F0005018372822892_b.jpg" data-content="Gson 源码分析">
-    <div class="ds-share-inline">
-      <ul  class="ds-share-icons-16">
-      <!--
-      	<li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
-        <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
-        <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
-        <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
-        <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
-       -->
-      </ul>
-      <div class="ds-share-icons-more">
-      </div>
-    </div>
- </div>
- 
 
 
 
 
 
+  
+  
+    <nav id="page-nav">
+      <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+    </nav>
+  
 </div>
       <footer id="footer">
   <div class="outer">
@@ -425,8 +403,8 @@
 		fancybox: true,
 		mathjax: true,
 		animate: true,
-		isHome: false,
-		isPost: true,
+		isHome: true,
+		isPost: false,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
